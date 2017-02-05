@@ -2,11 +2,17 @@
 
 {% block scripts %}
 {{ super() }}
-    <script>document.getElementById('footerTime').innerHTML=new Date();</script>
+{{ moment.include_moment() }}
 {% endblock scripts %}
 
 {% block title %}
     {% block pageName %}  {% endblock %} - PyWeb
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 {% endblock %}
 
 {% block navbar %}
@@ -44,7 +50,7 @@
         <div class="container">
             {% block footerContent %}
             <p class="text-muted">Developed by Eric Zhang</p>
-            <p class="text-muted" id="footerTime"></p>
+            <p class="text-muted"> {{ moment().format('LLL') }}.</p>
             {% endblock footerContent %}
         </div>
     </footer>

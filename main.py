@@ -1,14 +1,16 @@
 from flask import Flask, render_template
 from flask_script import Manager
 from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 
 app = Flask(__name__)
 manager = Manager(app)
 bootstrap = Bootstrap(app)
+moment = Moment(app)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html'), 200
 
 @app.errorhandler(404)
 def page_not_found(e):
