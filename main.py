@@ -1,14 +1,17 @@
-from flask import Flask
+from flask import Flask, render_template
+from flask_script import Manager
 
 app = Flask(__name__)
+manager = Manager(app)
 
 @app.route('/')
 def index():
-    return '<h1>Hello World</h1>', 200
+    return render_template('index.html')
 
 @app.route('/User/<name>')
 def user(name):
-    return '<h1>Hello %s!</h1>' % name, 200
+    return render_template('user.html', name=name)
 
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0',debug=True)
+    manager.run()
+#    app.run(host= '0.0.0.0',debug=True)
