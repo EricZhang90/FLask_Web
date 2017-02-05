@@ -45,9 +45,15 @@
     </div>
 </div>
 
+    {% block page_content %}
+    
+    {% endblock page_content %}
+    
     {% block footer %}
     <footer class="footer">
         <div class="container">
+            <br>
+            <hr>
             {% block footerContent %}
             <p class="text-muted">Developed by Eric Zhang</p>
             <p class="text-muted"> {{ moment().format('LLL') }}.</p>
