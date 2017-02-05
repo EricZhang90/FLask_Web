@@ -10,10 +10,17 @@ bootstrap = Bootstrap(app)
 def index():
     return render_template('index.html')
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', error=e), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('505.html', error=e), 500
+
 @app.route('/user/<name>')
 def user(name):
     return render_template('user.html', name=name)
 
 if __name__ == '__main__':
     manager.run()
-#    app.run(host= '0.0.0.0',debug=True)
