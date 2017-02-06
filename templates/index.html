@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block pageName %}  Index  {% endblock %}
+{% block pageName %}  Home  {% endblock %}
 
 
 {% block contentHeader %}
@@ -13,10 +13,10 @@
 {% endblock %}
 
 {% block page_content %}
-{% if name is none %}
-    <div class="container">
-        {{ wtf.quick_form(form) }}
-    </div>
-{% endif %}
+    
+<div class="container">
+    {{ wtf.quick_form(form) }}
+</div>
+
 {% endblock %}
 
