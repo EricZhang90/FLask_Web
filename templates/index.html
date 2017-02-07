@@ -10,6 +10,12 @@
     {% else %}
         <h1>Hello, Stranger!</h1>
     {% endif %}
+    
+    {% if not know %}
+        <p>Pleased to meet you!</p>
+    {% else %}
+        <p>Happy to meet you again!</p>
+    {% endif %}
 {% endblock %}
 
 {% block page_content %}
