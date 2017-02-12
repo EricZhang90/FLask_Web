@@ -1,0 +1,866 @@
+    1  ls
+    2  vi .zshrc
+    3  exit
+    4  ls
+    5  exitr
+    6  exit
+    7  virtualenv
+    8  sudo easy_install virtualenv
+    9  python -v
+   10  python update
+   11  ls
+   12  mkdir FlaskWebDevelopment
+   13  cd FlaskWebDevelopment
+   14  git 
+   15  mkdir gitV
+   16  cd gitV
+   17  git clone https://github.com/miguelgrinberg/flasky.git
+   18  cd flasky
+   19  git checkout 1a
+   20  ls
+   21  vi hello.py
+   22  exit
+   23  ls
+   24  cd FlaskWebDevelopment
+   25  ls
+   26  rm -rf gitV
+   27  git clone https://github.com/miguelgrinberg/flasky.git
+   28  cd flasky
+   29  git checkout 1a
+   30  virtualenv venv
+   31  ls
+   32  source venv/bin/activate
+   33  ls
+   34  ls venv
+   35  ls
+   36  men pip
+   37  man pip
+   38  pip -help
+   39  pip install flask
+   40  python
+   41  vi ~/.vimrc
+   42  ls
+   43  vi hello.py
+   44  py hello.py
+   45  python hello.py
+   46  vi hello.py
+   47  python hello.py
+   48  vi hello.py
+   49  python hello.py
+   50  vi hello.py
+   51  python hello.py
+   52  vi ~/.vimrc
+   53  vi hello.py
+   54  vi ~/.vimrc
+   55  vi hello.py
+   56  vi ~/.vimrc
+   57  vi hello.py
+   58  ..
+   59  ls
+   60  cd flasky
+   61  ls
+   62  git init
+   63  ls
+   64  virtualenv -h
+   65  virtualenv -q
+   66  exit
+   67  cd FlaskWebDevelopment
+   68  mv flasky/hello.py ~
+   69  rm -rf *
+   70  ls
+   71  ..
+   72  mv FlaskWebDevelopment PythonWeb
+   73  mv ~/hello.py
+   74  mv ~/hello.py PythonWeb/main.py
+   75  cd PythonWeb
+   76  ls
+   77  virtualenv ve
+   78  source ve/bin/activate
+   79  pip install flask
+   80  ls
+   81  python main.py
+   82  vi main.py
+   83  mv main.py ~
+   84  mv ~/main.py .
+   85  vi main.py
+   86  vi ~/.vimrc
+   87  vi main.py
+   88  vi ~/.vimrc
+   89  vi main.py
+   90  vi ~/.vimrc
+   91  vi main.py
+   92  python main.py
+   93  vi main.py
+   94  python main.py
+   95  vi main.py
+   96  python
+   97  python PythonWeb/main.py
+   98  source PythonWeb/ve/bin/activate
+   99  python PythonWeb/main.py
+  100  cd PythonWeb
+  101  ls
+  102  source -h
+  103  man source
+  104  source ve/bin/activate
+  105  pip install flask-script
+  106  vi main.py
+  107  python main.py
+  108  vi main.py
+  109  python main.py
+  110  vi main.py
+  111  python main.py
+  112  python main.py runserver --host 0.0.0.0
+  113  ls
+  114  mkdir templates
+  115  cd templates
+  116  vi user.html
+  117  vi ../main.py
+  118  python main.py runserver --host 0.0.0.0
+  119  cd ..
+  120  python main.py runserver --host 0.0.0.0
+  121  vi main.py
+  122  python main.py runserver --host 0.0.0.0
+  123  vi main.py
+  124  python main.py runserver --host 0.0.0.0
+  125  vi main.py
+  126  vi templates/index.html
+  127  python main.py runserver --host 0.0.0.0 --debug
+  128  vi templates/user.html
+  129  python main.py runserver --host 0.0.0.0 --debug
+  130  vi templates/user.html
+  131  vi main.py
+  132  vi templates/user.html
+  133  vi templates/basic.html
+  134  touch templates/basic.html
+  135  cd ~
+  136  curl https://j.mp/spf13-vim3 -L > spf13-vim.sh && sh spf13-vim.sh
+  137  vi main.py
+  138  source ve/bin/activate
+  139  ls
+  140  vi main.py
+  141  source ve/bin/activate
+  142  vi templates/user.html
+  143  vi templates/basic.html
+  144  vi ~/.vimrc.local
+  145  ~
+  146  ls
+  147  echo colorscheme ir_black  >> ~/.vimrc.local
+  148  vi templates/basic.html
+  149  vi main.py
+  150  vi ~/.vimrc.local
+  151  vi main.py
+  152  cd PythonWeb
+  153  vi main.py
+  154  cd PythonWeb
+  155  vi main.py
+  156  cd
+  157  vi 1.cpp
+  158  gcc -S 1.cpp
+  159  ls
+  160  vi 1.s
+  161  open 1.s
+  162  vi 1.s
+  163  vi 1.cpp
+  164  gcc -S 1.cpp
+  165  open 1.s
+  166  rm 1.s 1.cpp
+  167  cd PythonWeb
+  168  ls
+  169  source ve/bin/activate
+  170  vi main.py
+  171  vi ~/spf13-vim.sh
+  172  vi main.py
+  173  vi ./vimrc.local
+  174  vi main.py
+  175  source ve/bin/activate
+  176  ls
+  177  vi main.py
+  178  vi templates/basic.html
+  179  pwd ~
+  180  cd
+  181  pwd
+  182  cd 
+  183  cd PythonWeb
+  184  python main.py runserver --host 0.0.0.0 --debug
+  185  ls
+  186  pip install flask-bootstrap
+  187  vi main.py
+  188  pip install flask-bootstrap
+  189  python main.py runserver --host 0.0.0.0 --debug
+  190  vi main.py
+  191  python main.py runserver --host 0.0.0.0 --debug
+  192  vi main.py
+  193  python main.py runserver --host 0.0.0.0 --debug
+  194  python main.py runserver --host 0.0.0.0 
+  195  ls
+  196  mv main.pyc ..
+  197  python main.py runserver --host 0.0.0.0 
+  198  ls
+  199  mv ../main.pyc .
+  200  python main.py runserver --host 0.0.0.0 --debug
+  201  vi main.py
+  202  python main.py
+  203  vi main.py
+  204  python main.py runserver --host 0.0.0.0 --debug
+  205  ..
+  206  cd
+  207  git clone https://github.com/miguelgrinberg/flask.git
+  208  cd flask
+  209  git checkout 3b
+  210  git checkout 1a
+  211  virtualenv venv
+  212  source venv/bin/activate
+  213  git checkout 1a
+  214  ls
+  215  pwd
+  216  cd flask
+  217  ls
+  218  ..
+  219  ls
+  220  ..
+  221  ls
+  222  cd flask
+  223  git checkout 1a
+  224  ..
+  225  pwd
+  226  cd flask
+  227  pwd
+  228  git checkout 1a
+  229  ..
+  230  ls
+  231  pip install flask
+  232  git checkout 1a
+  233  git tags
+  234  git -help
+  235  git fetch --tags
+  236  git fetch --all
+  237  git fetch --tags
+  238  cd ..
+  239  git checkout 1a
+  240  rm -rf flask
+  241  exit
+  242  ls
+  243  cd
+  244  ls
+  245  mkdir PW
+  246  cd PW
+  247  git clone https://github.com/miguelgrinberg/flasky.git
+  248  cd flasky
+  249  git checkout 1a
+  250  git checkout 3b
+  251  ls
+  252  python hello.py runserver --host 0.0.0.0 --debug
+  253  pip install flask
+  254  virtualenv venv
+  255  source venv/bin/activate
+  256  pip install flask
+  257  pip install flask-bootstrap
+  258  pip install flask-script
+  259  python hello.py runserver --host 0.0.0.0 --debug
+  260  vi hello.py
+  261  python main.py runserver --host 0.0.0.0 --debug
+  262  vi hello.py
+  263  vi main.py
+  264  python main.py runserver --host 0.0.0.0 --debug
+  265  cd PythonWeb
+  266  source ve/bin/activate
+  267  vi main.py
+  268  python main.py runserver --host 0.0.0.0 --debug
+  269  vi main.py
+  270  python main.py runserver --host 0.0.0.0 --debug
+  271  vi main.py
+  272  python main.py runserver --host 0.0.0.0 --debug
+  273  vi main.py
+  274  python main.py runserver --host 0.0.0.0 --debug
+  275  vi main.py
+  276  vi PythonWeb/main.py
+  277  exit
+  278  vi main.py
+  279  vi PythonWeb/main.py
+  280  python main.py runserver --host 0.0.0.0 --debug
+  281  cd ../PW
+  282  ls
+  283  cd flasky
+  284  git checkout 3d
+  285  ls
+  286  ls static
+  287  ls templates
+  288  grep "favicon" templates/*
+  289  vi templates/base.html
+  290  ls ~/Desktop
+  291  mv ~/Desktop/favicon.jpg ./favicon.ico & open favicon.ico
+  292  ls
+  293  mkdir static
+  294  mv favicon.ico static
+  295  python main.py runserver --host 0.0.0.0 --debug
+  296  ls
+  297  ls static
+  298  ls
+  299  python main.py runserver --host 0.0.0.0 --debug
+  300  source venv/bin/activate
+  301  python main.py runserver --host 0.0.0.0 --debug
+  302  python hello.py runserver --host 0.0.0.0 --debug
+  303  ls
+  304  python hello.py runserver --host 0.0.0.0 --debug
+  305  python main.py runserver --host 0.0.0.0 --debug
+  306  vi templates/index.html
+  307  python hello.py runserver --host 0.0.0.0 --debug
+  308  vi templates/index.html
+  309  python hello.py runserver --host 0.0.0.0 --debug
+  310  vi templates/index.html
+  311  vi templates/base.html
+  312  python main.py runserver --host 0.0.0.0 --debug
+  313  rm static/favicon.ico
+  314  mv ~/Downloads/freepik.ico static
+  315  python main.py runserver --host 0.0.0.0 --debug
+  316  vi templates/base.html
+  317  ls
+  318  ls static
+  319  mv static/freepik.ico favicon.ico
+  320  ls static
+  321  python main.py runserver --host 0.0.0.0 --debug
+  322  ls static
+  323  ls favicon*
+  324  vi templates/base.html
+  325  python main.py runserver --host 0.0.0.0 --debug
+  326  cd static
+  327  ls
+  328  ls ..
+  329  mv ../favicon.ico .
+  330  ..
+  331  python main.py runserver --host 0.0.0.0 --debug
+  332  pip install flask-moment
+  333  vi main.py
+  334  git checkout 3d
+  335  git checkout 3e
+  336  ls
+  337  vi hello.py
+  338  python main.py runserver --host 0.0.0.0 --debug
+  339  vi main.py
+  340  python main.py runserver --host 0.0.0.0 --debug
+  341  vi main.py
+  342  python main.py runserver --host 0.0.0.0 --debug
+  343  vi main.py
+  344  python main.py runserver --host 0.0.0.0 --debug
+  345  vi main.py
+  346  pip install flask-wtf
+  347  vi main.py
+  348  python main.py runserver --host 0.0.0.0 --debug
+  349  vi main.py
+  350  python main.py runserver --host 0.0.0.0 --debug
+  351  vi main.py
+  352  python main.py runserver --host 0.0.0.0 --debug
+  353  vi main.py
+  354  python main.py runserver --host 0.0.0.0 --debug
+  355  vi main.py
+  356  ls
+  357  ls templates
+  358  ls
+  359  ls templates
+  360  vi main.py
+  361  python main.py runserver --host 0.0.0.0 --debug
+  362  python main.py runserver --host 0.0.0.0 
+  363  ls
+  364  vi main.py
+  365  head 35 main.py | tail 3 > NameForm.py
+  366  head -35 main.py | tail -3 > NameForm.py
+  367  vi NameForm.py
+  368  vi main.py
+  369  head -7 main.py | tail -3 >> NameForm.py
+  370  vi NameForm.py
+  371  vi main.py
+  372  python main.py runserver --host 0.0.0.0 
+  373  vi main.py
+  374  python main.py runserver --host 0.0.0.0 
+  375  vi main.py
+  376  ls
+  377  vi main.py
+  378  python main.py runserver --host 0.0.0.0 
+  379  vi main.py
+  380  python main.py runserver --host 0.0.0.0 
+  381  ls
+  382  vi main.py
+  383  python main.py runserver --host 0.0.0.0 
+  384  cd ../PW/flasky
+  385  ls
+  386  python hello.py runserver --host 0.0.0.0 --debug
+  387  source venv/bin/activate
+  388  python hello.py runserver --host 0.0.0.0 --debug
+  389  python main.py runserver --host 0.0.0.0 
+  390  vi main.py
+  391  python main.py runserver --host 0.0.0.0 
+  392  vi main.py
+  393  python main.py runserver --host 0.0.0.0 
+  394  vi main.py
+  395  grep 'url_for' *
+  396  grep 'url_for' templates/*
+  397  python main.py runserver --host 0.0.0.0 
+  398  vi main.py
+  399  python main.py runserver --host 0.0.0.0 
+  400  source ve/bin/activate
+  401  python main.py runserver --host 0.0.0.0 
+  402  vi main.py
+  403  python main.py runserver --host 0.0.0.0 
+  404  vi main.py
+  405  python main.py runserver --host 0.0.0.0 
+  406  mysql
+  407  sql
+  408  man pip
+  409  pip install flask-sqlalchemy
+  410  /Users/leizhang/Desktop/mysql-5.7.17-macos10.12-x86_64/bin/mysql ; exit;
+  411  vi main.py
+  412  vi ~/.zshrc
+  413  cd
+  414  mysql
+  415  sql
+  416  mysql
+  417  ls
+  418  Mysql
+  419  man mysql
+  420  mysql --help
+  421  cd /usr/local/mysql/bin/mysql
+  422  cd /usr/local/mysql/bin
+  423  ls
+  424  mysql
+  425  export PATH=${PATH}:/usr/local/mysql/bin.
+  426  export PATH=${PATH}:/usr/local/mysql/bin
+  427  mysql
+  428  vi .bash_profile
+  429  mysql
+  430  bash
+  431  vi .bash_profile
+  432  rm .bash_profile
+  433  ls
+  434  vi .zshrc
+  435  mysql
+  436  vi .zshrc
+  437  mysql -u 'root@localhost' -p '9o?jl3f9a7B'
+  438  mysql -u 'root@localhost' 
+  439  mysql -u 'root@localhost' -p '9o?jl3f9a7B'
+  440  vi .vimrc
+  441  vi .zshrc
+  442  mysql -u 'root@localhost' -p '9o?jl3f9a7B'
+  443  mysql -u root
+  444  mysql -u root -p '9o?jl3f9a7B'
+  445  mysql -u root -p 
+  446  mysql -u root -p '>9o?jl3f9a7B'
+  447  mysql -u root -p 
+  448  cd PythonWeb
+  449  source ve/bin/activate
+  450  vi main.py
+  451  mysql -u root -p 
+  452  /Users/leizhang/Desktop/mysql-5.7.17-macos10.12-x86_64/bin/mysql ; exit;
+  453  vi .zshrc
+  454  cd PythonWeb
+  455  source ve/bin/activate
+  456  python hello.py runserver --host 0.0.0.0 --debug
+  457  python main.py runserver --host 0.0.0.0 --debug
+  458  vi main.py
+  459  python main.py runserver --host 0.0.0.0 --debug
+  460  vi main.py
+  461  python main.py shell
+  462  vi main.py
+  463  python main.py shell
+  464  pip install mysql-python
+  465  python main.py shell
+  466  vi main.py
+  467  mysql -u root -p
+  468  vi main.py
+  469  python main.py shell
+  470  mysql -u root -p
+  471  vi main.py
+  472  python main.py runserver --host 0.0.0.0 --debug
+  473  vi main.py
+  474  python main.py runserver --host 0.0.0.0 --debug
+  475  vi main.py
+  476  mysql -u root -p
+  477  python main.py shell
+  478  python main.py runserver --host 0.0.0.0 --debug
+  479  vi main.py
+  480  python main.py runserver --host 0.0.0.0 --debug
+  481  vi main.py
+  482  python main.py shell
+  483  cat main.py
+  484  vi main.py
+  485  python main.py runserver --host 0.0.0.0 --debug
+  486  vi main.py
+  487  head -12 main.py | tail -1
+  488  vi main.py
+  489  python main.py runserver --host 0.0.0.0 --debug
+  490  vi main.py
+  491  python main.py runserver --host 0.0.0.0 
+  492  vi main.py
+  493  python main.py shell
+  494  vi main.py
+  495  python main.py shell
+  496  vi main.py
+  497  python main.py shell
+  498  pip install flask-migrate
+  499  vi main.py
+  500  python main.py db init
+  501  ls
+  502  ls migrations
+  503  python main.py runserver --host 0.0.0.0 --debug
+  504  vi main.py
+  505  vi NameForm.py
+  506  python main.py db migrate -m "initial migration"
+  507  python main.py db upgrade
+  508  pip install flask-mail
+  509  vi main.py
+  510  vi ~/.zshrc
+  511  python main.py shell
+  512  exit
+  513  cd PythonWeb
+  514  source ve/bin/activate
+  515  python main.py shell
+  516  vi ~/.zshrc
+  517  echo $MAIL_USERNAME
+  518  echo $MAIL_PASSWORD
+  519  vi main.py
+  520  vi test.py
+  521  python test.py
+  522  echo $MAIL_PASSWORD
+  523  python main.py shell
+  524  echo $MAIL_USERNAME
+  525  vi main.py
+  526  export MAIL_USERNAME='SEneca1230.'
+  527  export MAIL_USERNAME='lzhang.eric@gmail.com'
+  528  python test.py
+  529  vi test.py
+  530  python test.py
+  531  vi test.py
+  532  ls
+  533  vi main.py
+  534  head -26 main.py | tail -1
+  535  python test.py
+  536  vi main.py
+  537  python test.py
+  538  vi main.py
+  539  python test.py
+  540  vi ~/.zshrc
+  541  head -7 ~/.zshrc| tail -2
+  542  export MAIL_USERNAME="z443655367@gmail.com"
+  543  export MAIL_PASSWORD="SEneca1230."
+  544  vi main.py
+  545  python test.py
+  546  vi main.py
+  547  vi ~/.zshrc
+  548  vi main.py
+  549  head -26 main.py | tail -1
+  550  export MAIL_PASSWORD=SEneca1230.
+  551  export MAIL_USERNAME=z443655367@gmail.com
+  552  echo $MAIL_PASSWORD
+  553  python test.py
+  554  export MAIL="test"
+  555  python -c "import os; print os.environ.get('MAIL')"
+  556  python -c "import os; print os.environ.get('MAIL_USERNAME')"
+  557  python -c "import os; print os.environ.get('MAIL_PASSWORD')"
+  558  source ve/bin/a
+  559  source ve/bin/activate
+  560  python -c "import os; print os.environ.get('MAIL_PASSWORD')"
+  561  vi test.py
+  562  vi main.py
+  563  python main.py runserver --host 0.0.0.0 --debug
+  564  vi main.py
+  565  python main.py runserver --host 0.0.0.0 --debug
+  566  vi main.py
+  567  python main.py runserver --host 0.0.0.0 --debug
+  568  vi main.py
+  569  python test.py
+  570  vi main.py
+  571  python main.py runserver --host 0.0.0.0
+  572  vi main.py
+  573  python main.py runserver --host 0.0.0.0
+  574  vi main.py
+  575  echo $MAIL_USERNAME
+  576  vi main.py
+  577  python main.py runserver --host 0.0.0.0
+  578  vi main.py
+  579  python -c "import os; print os.environ.get('MAIL_USERNAME')"
+  580  vi main.py
+  581  python test.py
+  582  vi test.py
+  583  vi main.py
+  584  python test.py
+  585  ls
+  586  rm test.py
+  587  vi main.py
+  588  vi ~/.zshrc
+  589  head -8 ~/.zshrc | tail -1
+  590  export PY_ADMIN="lzhang.eric@gmail.com"
+  591  vi main.py
+  592  export PY_WEB_ADMIN="lzhang.eric@gmail.com"
+  593  vi ~/.zshrc
+  594  python main.py runserver --host 0.0.0.0
+  595  source ve/bin/activate
+  596  python main.py runserver --host 0.0.0.0
+  597  vi main.py
+  598  python main.py runserver --host 0.0.0.0
+  599  ..
+  600  ls
+  601  cd PW
+  602  ls
+  603  cd flasky
+  604  git checkout 6a
+  605  ls
+  606  cd templates
+  607  ls
+  608  cd templates
+  609  ls
+  610  mkdir mail
+  611  cd mail
+  612  ls
+  613  touch new_user.txt new_user.html
+  614  cd ../../
+  615  ls
+  616  python main.py runserver --host 0.0.0.0 --debug
+  617  vi main.py
+  618  head -103 main.py | tail -84 > model.py
+  619  vi model.py
+  620  vi main.py
+  621  mv NameForm.py nameForm.py
+  622  ls
+  623  vi model.py
+  624  python main.py runserver --host 0.0.0.0 --debug
+  625  vi model.py
+  626  vi main.py
+  627  vi nameForm.py
+  628  ls
+  629  python main.py runserver --host 0.0.0.0 --debug
+  630  vi main.py
+  631  python main.py runserver --host 0.0.0.0 --debug
+  632  vi nameForm.py
+  633  vi main.py
+  634  rm model.py
+  635  python main.py runserver --host 0.0.0.0 --debug
+  636  vi main.py
+  637  cd PythonWeb
+  638  source ve/bin/activate
+  639  vi main.py
+  640  python main.py runserver --host 0.0.0.0 --debug
+  641  vi main.py
+  642  ls
+  643  mkdir app
+  644  mv templates app
+  645  mv static app
+  646  mkdir app/main
+  647  rm model.pyc
+  648  touch app/main/__init__.py
+  649  ls
+  650  touch app/main/errors.py
+  651  mv nameForm.py app/main/forms.py
+  652  vi main.py
+  653  touch app/main/views.py
+  654  touch app/__init__.py
+  655  touch app/email.py
+  656  touch app/models.py
+  657  ls
+  658  mkdir tests
+  659  touch tests/__init__.py
+  660  touch extentions.txt
+  661  touch config.py
+  662  touch manage.py
+  663  ls
+  664  rm main.pyc
+  665  ls
+  666  rm NameForm.pyc
+  667  ls
+  668  vi config.py
+  669  cat main.py
+  670  cd app
+  671  ls
+  672  vi __init__.py
+  673  ls
+  674  vi __init__.py
+  675  ls
+  676  pwd
+  677  cd main
+  678  ls
+  679  vi __init__.py
+  680  ls
+  681  ..
+  682  ls
+  683  vi __init__.py
+  684  ls
+  685  cd main
+  686  ls
+  687  vi errors.py
+  688  ls
+  689  vi errors.py
+  690  vi views.py
+  691  ls
+  692  cat forms.py
+  693  vi views.py
+  694  vk
+  695  ls
+  696  vi views.py
+  697  ls
+  698  vi __init__.py
+  699  vi ../__init__.py
+  700  vi views.py
+  701  grep "main" .
+  702  grep "main" ./*
+  703  grep "main" ../*
+  704  vi views.py
+  705  ls
+  706  ls ..
+  707  ls ../..
+  708  ls ../../app
+  709  pwd
+  710  pwd ../../app
+  711  pwd ../..
+  712  cd ../../app
+  713  pwd
+  714  cd main
+  715  ls
+  716  ls ../
+  717  ls ../main
+  718  cd ..
+  719  ls
+  720  cd ..
+  721  ls
+  722  vi manage.py
+  723  ls usr/bin
+  724  ls
+  725  cd app
+  726  ls
+  727  cd main
+  728  ls
+  729  vi views.py
+  730  cd ../..
+  731  ls
+  732  vi manage.py
+  733  ls
+  734  vi config.py
+  735  vi main.py
+  736  mv main.py main_old.py
+  737  cd app
+  738  ls
+  739  vi email.py
+  740  ls
+  741  ls ../
+  742  cat ../manage.py
+  743  vi email.py
+  744  python email.py
+  745  pwd
+  746  ls
+  747  cat app/main/views.py
+  748  ls
+  749  ls ..
+  750  ls
+  751  cd app/main
+  752  ls
+  753  cd ..
+  754  ls
+  755  python email.py
+  756  vi email.py
+  757  python email.py
+  758  pwd
+  759  python -m PythonWeb/app/email
+  760  python -m ../app/email
+  761  python -m /email
+  762  python -m email
+  763  ls
+  764  vi email.py
+  765  ls
+  766  vi email.py
+  767  ls
+  768  ..
+  769  ls
+  770  cat manage.py
+  771  ls
+  772  cd app
+  773  ls
+  774  cat __init__.py
+  775  vi email.py
+  776  vi main/views.py
+  777  Falsels
+  778  ls
+  779  cd app
+  780  ls
+  781  cat __init__.py
+  782  ls
+  783  cd main
+  784  ls
+  785  cat __init__.py
+  786  ls
+  787  cd ..
+  788  ls
+  789  python manage.py runserver --host 0.0.0.0 --debug
+  790  vi manage.py
+  791  ls
+  792  cd app
+  793  ls
+  794  cat models.py
+  795  vi models.py
+  796  cat main_old.py
+  797  ls
+  798  ls ../
+  799  cat ../manage.py
+  800  ls
+  801  cat __init__.py
+  802  ..
+  803  python manage.py runserver --host 0.0.0.0 --debug
+  804  vi manage.py
+  805  source ve/bin/activate
+  806  python manage.py runserver --host 0.0.0.0 --debug
+  807  /Users/leizhang/PythonWeb/app/__init__.py 
+  808  vi /Users/leizhang/PythonWeb/app/__init__.py
+  809  python manage.py runserver --host 0.0.0.0 --debug
+  810  vi /Users/leizhang/PythonWeb/app/main/views.py
+  811  ls
+  812  ls app
+  813  ls app/main/
+  814  python manage.py runserver --host 0.0.0.0 --debug
+  815  vi /Users/leizhang/PythonWeb/app/main/views.py
+  816  /Users/leizhang/PythonWeb/app/main/
+  817  ls
+  818  cat __init__.py
+  819  ls
+  820  cat ../__init__.py
+  821  cat ../../manage.py
+  822  python manage.py runserver --host 0.0.0.0 --debug
+  823  vi /Users/leizhang/PythonWeb/app/main/views.py
+  824  python manage.py runserver --host 0.0.0.0 --debug
+  825  cd ..
+  826  ls
+  827  cd PW
+  828  ls
+  829  cd flasky
+  830  git checkout 7a
+  831  ls
+  832  cd app/main
+  833  ls
+  834  cat views.py
+  835  vi /Users/leizhang/PythonWeb/app/main/views.py
+  836  python manage.py runserver --host 0.0.0.0 --debug
+  837  vi /Users/leizhang/PythonWeb/app/email.py
+  838  python manage.py runserver --host 0.0.0.0 --debug
+  839  vi /Users/leizhang/PythonWeb/app/email.py
+  840  python manage.py runserver --host 0.0.0.0 --debug
+  841  python manage.py runserver --host 0.0.0.0 
+  842  mysql -u 'root' -p
+  843  vi /Users/leizhang/PythonWeb/app/email.py
+  844  ls
+  845  ..
+  846  ls
+  847  cd main
+  848  ls
+  849  cat views.py
+  850  vi app/main/views.py
+  851  ls
+  852  pip -h
+  853  pip show
+  854  pip show flask
+  855  ls
+  856  vi extentions.txt
+  857  pip show flask-B*
+  858  pip show flask-Bootstrap
+  859  pip show flask-Mail
+  860  pip show flask-Migrate
+  861  pip show flask-Moment
+  862  pip show -h
+  863  pip show -f
+  864  pip show -f *
+  865  pip -h
+  866  pip freeze

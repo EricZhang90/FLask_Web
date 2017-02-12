@@ -5,7 +5,9 @@ from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, MigrateCommand
 
-from NameForm import NameForm
+import os
+
+from forms import NameForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Popeyes is better then KFC.'
@@ -17,6 +19,24 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+# email
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_SUBJECT_PREFIX'] = '[PythonWeb]'
+app.config['MAIL_SENDER'] = "Eric Zhang <z443655367gmail.com>"
+app.config['PY_WEB_ADMIN'] = os.environ.get('PY_WEB_ADMIN')
+
+from flask_mail import Mail, Message
+mail = Mail(app)
+
+def send_email(to, subject, template, **kwargs):
+    msg = Message(app.config['MAIL_SUBJECT_PREFIX'] + subject, sender=app.config['MAIL_SENDER'], recipients=[to])
+    msg.body = render_template(template + '.txt', **kwargs)
+    msg.html = render_template(template + '.html', **kwargs)
+    mail.send(msg)
 
 bootstrap = Bootstrap(app)
 
@@ -40,6 +60,8 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known'] = False
+            if app.config['PY_WEB_ADMIN']:
+                send_email(app.config['PY_WEB_ADMIN'], 'New User', 'mail/new_user', user=user)
         else:
             session['known'] =True
 
