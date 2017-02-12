@@ -25,8 +25,12 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    # TOOO do
-    SQLALCHEMY_DATABASE_URI =  ''
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:4166666906@localhost/PythonWeb'
 
 class ProductionConfig(Config):
     # I DON'T HAVE! HAHAHA
@@ -40,10 +44,3 @@ config = {
     'default': DevelopmentConfig
 
 }
-
-
-
-
-
-
-
