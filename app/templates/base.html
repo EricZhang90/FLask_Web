@@ -26,11 +26,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/"> PyWeb </a>
+                <a class="navbar-brand" href="{{ url_for('main.index') }}"> PyWeb </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/"> Home </a></li>
+                    <li><a href="{{ url_for('main.index') }}"> Home </a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  {% if current_user.is_authenticated %}
+                    <li>
+                      <a href="{{ url_for('auth.logout') }}">Sign Out</a>
+                    </li>
+                  {% else %}
+                    <li>
+                      <a href="{{ url_for('auth.login') }}">Sign In</a>
+                    </li>
+                  {% endif %}
                 </ul>
             </div>
         </div>
@@ -52,9 +63,9 @@
 </div>
 
     {% block page_content %}
-    
+
     {% endblock page_content %}
-    
+
     {% block footer %}
     <footer class="footer">
         <div class="container">
@@ -69,5 +80,3 @@
     {% endblock footer %}
 
 {% endblock content %}
-
-
