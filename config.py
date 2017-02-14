@@ -25,7 +25,7 @@ class DevelopmentConfig(Config):
     db_password = os.environ.get('PW_DB_PASSWORD')
     db_host = os.environ.get('PW_DB_HOST')
     db_database = os.environ.get('PW_DB_DATABASE')
-    SQLALCHEMY_DATABASE_URI = '%s://%s@%s/%s' % (db_username, db_password, db_host, db_database)
+    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s/%s' % (db_username, db_password, db_host, db_database)
 
 
 class TestingConfig(Config):
@@ -39,7 +39,7 @@ class TestingConfig(Config):
     db_password = os.environ.get('PW_DB_PASSWORD')
     db_host = os.environ.get('PW_DB_HOST')
     db_database = os.environ.get('PW_DB_DATABASE')
-    SQLALCHEMY_DATABASE_URI = '%s://%s@%s/%s' % (db_username, db_password, db_host, db_database)
+    SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s/%s' % (db_username, db_password, db_host, db_database)
 
 
 class ProductionConfig(Config):
