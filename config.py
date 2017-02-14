@@ -21,7 +21,12 @@ class DevelopmentConfig(Config):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     # need to set to environment variable later...
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:4166666906@localhost/PythonWeb'
+    db_username = os.environ.get('PW_DB_USERNAME')
+    db_password = os.environ.get('PW_DB_PASSWORD')
+    db_host = os.environ.get('PW_DB_HOST')
+    db_database = os.environ.get('PW_DB_DATABASE')
+    SQLALCHEMY_DATABASE_URI = '%s://%s@%s/%s' % (db_username, db_password, db_host, db_database)
+
 
 class TestingConfig(Config):
     TESTING = True
@@ -30,7 +35,12 @@ class TestingConfig(Config):
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:4166666906@localhost/PythonWeb'
+    db_username = os.environ.get('PW_DB_USERNAME')
+    db_password = os.environ.get('PW_DB_PASSWORD')
+    db_host = os.environ.get('PW_DB_HOST')
+    db_database = os.environ.get('PW_DB_DATABASE')
+    SQLALCHEMY_DATABASE_URI = '%s://%s@%s/%s' % (db_username, db_password, db_host, db_database)
+
 
 class ProductionConfig(Config):
     # I DON'T HAVE! HAHAHA
