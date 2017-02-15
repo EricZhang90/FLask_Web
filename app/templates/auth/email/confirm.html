@@ -1,0 +1,12 @@
+<h3>Dear {{ user.username }},</h3>
+
+<p>Welcome to PythonWeb:</p>
+
+<p>    To confirm your account please click on the following link:
+
+    {{ url_for('auth.confirm', token=token, _external=True) }}</p>
+
+<br/>
+<p>    Bset,</p>
+
+<p>    Eric Zhang</p>
