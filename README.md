@@ -4,7 +4,7 @@
 
 ## Deployment: ##
 
-**Pre-condition:**
+*__Pre-condition:__*
 
  1. MySQL installed
 
@@ -15,7 +15,7 @@
  4. Git installed
 
 
-**Installation:**
+*__Installation:__*
 
   1. git clone https://github.com/EricZhang90/PythonWeb.git
 
@@ -26,30 +26,30 @@
   4. pip install -r extentions.txt
 
 
-**Setup tables in DB:**
+*__Setup tables in DB:__*
 
 1. python manage.py shell
 
 2. db.create_all()
 
 
-**Setup Migration:**
+*__Setup Migration:__*
 
 1. python manage.py db init
 
 2. python manage.py db migrate -m "initial migration"
 
 
-**Use Migration:**
+*__Use Migration:__*
 
 1. python manage.py db upgrade
 
 
-**Run:**
+*__Run:__*
 
 1. python manage.py runserver --host 0.0.0.0
 
 
-**Exit:**
+*__Exit:__*
 
 1. ctrl + c
