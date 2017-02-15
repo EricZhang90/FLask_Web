@@ -7,15 +7,19 @@
  2. A database named 'PythonWeb' is created in MySQL
 
  3. Setup all environment variables in environment_variables.txt
+ 
+ 4. Git installed
 
 
 **Installation:**
 
-  1. virtualvenv -ve
+  1. git clone https://github.com/EricZhang90/PythonWeb.git
 
-  2. source ve/bin/active
+  2. virtualvenv -ve
 
-  3. pip install -r extentions.txt
+  3. source ve/bin/active
+
+  4. pip install -r extentions.txt
 
 
 **Sepup tables in DB:**
