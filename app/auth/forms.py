@@ -3,6 +3,7 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Valid
 from wtforms.validators import Required, Length, Email, Regexp, EqualTo
 from ..models import User
 import os
+from flask_login import current_user
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[Required(), Length(3,64), Email()])
@@ -12,11 +13,16 @@ class LoginForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[Required(), Length(3,64), Email()])
-    username = StringField('Username', validators=[Required(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_,]*$', 0,
-                                                                                     'Username must have only letters,'
-                                                                                     'numbers, dots or underscores')])
-    password = PasswordField('Password', validators=[Required(), EqualTo('password2', message='Passwords must match')])
-    password2 = PasswordField('Confirm password', validators=[Required()])
+
+    username = StringField('Username', validators=[Required(),
+                                                   Length(1, 64),
+                                                   Regexp('^[A-Za-z][A-Za-z0-9_,]*$', 0,
+                                                          'Username must have only letters,'
+                                                          'numbers, dots or underscores')])
+    password = PasswordField('Password', validators=[Required(),
+                                                     EqualTo('password2', message='Passwords must match'),
+                                                     Length(8, 128, 'Length of password must be 8 - 128')])
+    password2 = PasswordField('Confirm Password', validators=[Required()])
     submit = SubmitField('Register')
 
     def validate_emeail(self, field):
@@ -26,3 +32,23 @@ class RegistrationForm(FlaskForm):
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('Username already registered.')
+
+
+class ChangePasswordForm(FlaskForm):
+    old_passowrd = PasswordField('Old Password', validators=[Required(),
+                                                     Length(8, 128, 'Length of password must be 8 - 128')])
+    new_password = PasswordField('New Password', validators=[Required(),
+                                                     EqualTo('password2', message='Passwords must match'),
+                                                     Length(8, 128, 'Length of password must be 8 - 128')])
+    new_password2 = PasswordField('Confirm Password', validators=[Required()])
+    submit = SubmitField('Change Password')
+
+    def validate_old_password(self, field):
+        if current_user.verify_password(field.data) == False:
+            raise ValidationError('Old password is incorrect.')
+
+
+
+
+
+
