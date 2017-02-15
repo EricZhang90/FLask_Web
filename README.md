@@ -22,7 +22,7 @@
   4. pip install -r extentions.txt
 
 
-**Sepup tables in DB:**
+**Setup tables in DB:**
 
 1. python manage.py shell
 

@@ -15,8 +15,8 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known'] = False
-            if current_app.config['PY_WEB_ADMIN']:
-                send_email(current_app.config['PY_WEB_ADMIN'], 'New User', 'mail/new_user', user=user)
+            if current_app.config['PW_WEB_ADMIN']:
+                send_email(current_app.config['PW_WEB_ADMIN'], 'New User', 'mail/new_user', user=user)
             else:
                 session['known'] =True
 

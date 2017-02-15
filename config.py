@@ -2,11 +2,11 @@ import os
 baseDir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
-    SECRET_KEY = 'Popeyes is better then KFC.'
+    SECRET_KEY = os.environ.get('PW_SECRET_KEY')
     SQLAlCHEMY_COMMIT_ON_TEARDOWN = True
     MAIL_SUBJECT_PREFIX = 'PyWeb'
     MAIL_SENDER = "Eric Zhang <z443655367gmail.com>"
-    PY_WEB_ADMIN = os.environ.get('PY_WEB_ADMIN')
+    PY_WEB_ADMIN = os.environ.get('PW_WEB_ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     @staticmethod
@@ -18,8 +18,8 @@ class DevelopmentConfig(Config):
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.environ.get('PW_MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('PW_MAIL_PASSWORD')
 
     db_username = os.environ.get('PW_DB_USERNAME')
     db_password = os.environ.get('PW_DB_PASSWORD')
@@ -32,8 +32,8 @@ class TestingConfig(Config):
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
     MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    MAIL_USERNAME = os.environ.get('PW_MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('PW_MAIL_PASSWORD')
     db_username = os.environ.get('PW_DB_USERNAME')
     db_password = os.environ.get('PW_DB_PASSWORD')
     db_host = os.environ.get('PW_DB_HOST')
