@@ -2,6 +2,8 @@
 
 * Currently running in: http://eric909.pythonanywhere.com/ 
 
+## Deployment: ##
+
 **Pre-condition:**
 
  1. MySQL installed
