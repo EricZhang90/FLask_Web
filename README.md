@@ -1,6 +1,6 @@
 # PythonWeb  - A Web Server#
 
-* Currently running in: http://eric909.pythonanywhere.com/ *
+* Currently running in: http://eric909.pythonanywhere.com/ 
 
 **Pre-condition:**
 
