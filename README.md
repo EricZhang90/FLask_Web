@@ -17,7 +17,7 @@
 
   2. virtualvenv -ve
 
-  3. source ve/bin/active
+  3. source ve/bin/active    [Make sure this command is run everytime]
 
   4. pip install -r extentions.txt
 
