@@ -25,7 +25,6 @@ class DevelopmentConfig(Config):
     db_password = os.environ.get('PW_DB_PASSWORD')
     db_host = os.environ.get('PW_DB_HOST')
     db_database = os.environ.get('PW_DB_DATABASE')
-    #SQLALCHEMY_DATABASE_URI = 'mysql://eric909:zl4166666906@eric909.mysql.pythonanywhere-services.com/eric909$PythonWeb'
     SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s/%s' % (db_username, db_password, db_host, db_database)
 
 
