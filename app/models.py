@@ -50,15 +50,12 @@ class User(db.Model, UserMixin):
 
     def confirm(self, token):
         s = Serializer(current_app.config['SECRET_KEY'])
-
         try:
             data = s.loads(token)
         except:
             return False
-
         if data.get('confirm') != self.id:
             return False
-
         self.confirmed = True
         db.session.add(self)
         db.session.commit()
@@ -85,7 +82,16 @@ class User(db.Model, UserMixin):
             raise ValueError('Invalid Token')
         self.email = data.get('new_email')
 
+    def generate_reset_password_token(self, password, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'user': self.id, 'password': password})
 
+    def change_password_by_token(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        data = s.loads(token)
+        if data.get('user') != self.id or data.get('password') is None:
+            raise ValueError('Invalid Token')
+        self.password = data.get('password')
 
 
 

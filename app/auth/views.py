@@ -3,8 +3,10 @@ from flask_login import login_user, logout_user, login_required, current_user
 from . import auth
 from .. import db
 from ..models import User
-from .forms import LoginForm, RegistrationForm, ChangePasswordForm, ChangeEmailForm
+from .forms import LoginForm, RegistrationForm, ChangePasswordForm, ChangeEmailForm, RestPasswordForm
 from ..email import send_email
+
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -16,6 +18,7 @@ def login():
             return redirect(request.args.get('next') or url_for('main.index'))
         flash('Invalid username or password')
     return render_template('auth/login.html', form=form)
+
 
 @auth.route('/logout')
 @login_required
@@ -63,11 +66,13 @@ def before_request():
             and request.endpoint != 'static':
         return redirect(url_for('auth.unconfirmed'))
 
+
 @auth.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
         return redirect(url_for('main.index'))
     return render_template('auth/unconfirmed.html')
+
 
 @auth.route('/confirm')
 @login_required
@@ -76,6 +81,7 @@ def resend_confirmation():
     send_email(current_user.email, 'Confirm Your Account', 'auth/email/confirm', user=current_user, token=token)
     flash('A new confirmation email has been sent to you by email.')
     return redirect(url_for('main.index'))
+
 
 @auth.route('/change_password', methods=['GET', 'POST'])
 @login_required
@@ -90,6 +96,7 @@ def change_password():
         passwordForm.cleanForm()
         return redirect(url_for('auth.change_password'))
     return render_template('auth/change_password.html', passwordForm=passwordForm)
+
 
 @auth.route('/request_change_email', methods=['GET', 'POST'])
 @login_required
@@ -106,6 +113,7 @@ def request_change_email():
 
     return render_template('auth/change_email.html', emailForm=emailForm)
 
+
 @auth.route('/change_email/<token>')
 def change_email(token):
     try:
@@ -116,12 +124,25 @@ def change_email(token):
     flash('Email has been changed.')
     return redirect(url_for('main.index'))
 
+
 @auth.route('/profile')
 @login_required
 def profile():
     return render_template('auth/profile.html')
 
 
+@auth.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if current_user.is_anonymous == False:
+        return redirect(url_for('main.index'))
+    form = RestPasswordForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        token = user.generate_reset_password_token(password=form.password.data)
+        send_email(form.email.data, 'Reset Password', 'auth/email/reset_password', user=user, token=token)
+        flash('A reset password email has been sent to your email. Please active new password by a link contained in the email.')
+        return redirect(url_for('main.index'))
+    return render_template('auth/reset_password.html', form=form)
 
 
 
