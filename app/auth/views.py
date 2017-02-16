@@ -96,14 +96,17 @@ def change_password():
 def request_change_email():
     emailForm = ChangeEmailForm()
     if emailForm.validate_on_submit():
-        token = current_user.generate_change_email_token(new_email=emailForm.email.data)
-        send_email(emailForm.email.data, 'Confirm Email Change', 'auth/email/change_email', user=current_user, token=token)
-        flash('A new confirmation email has been sent to you by new email address. Please confirm it in order to change your email.')
-        return redirect(url_for('main.index'))
+        if current_user.verify_password(emailForm.password.data):
+            token = current_user.generate_change_email_token(new_email=emailForm.email.data)
+            send_email(emailForm.email.data, 'Confirm Email Change', 'auth/email/change_email', user=current_user, token=token)
+            flash('A new confirmation email has been sent to you by new email address. Please confirm it in order to change your email.')
+            return redirect(url_for('main.index'))
+        else:
+            flash('Password is incorrect. Please enter correct password.')
+
     return render_template('auth/change_email.html', emailForm=emailForm)
 
 @auth.route('/change_email/<token>')
-@login_required
 def change_email(token):
     try:
         current_user.change_email_by_token(token)
@@ -112,6 +115,25 @@ def change_email(token):
         return render_template('auth/change_email.html', emailForm=ChangeEmailForm())
     flash('Email has been changed.')
     return redirect(url_for('main.index'))
+
+@auth.route('/profile')
+@login_required
+def profile():
+    return render_template('auth/profile.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

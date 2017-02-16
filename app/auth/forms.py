@@ -49,10 +49,9 @@ class ChangePasswordForm(FlaskForm):
         self.new_password2.data = ""
 
 class ChangeEmailForm(FlaskForm):
+    password = PasswordField('Current Password', validators=[Required()])
     email = StringField('New Email', validators=[Required(), Length(3,64), Email()])
     submit = SubmitField('Chage Email')
 
     def cleanForm(self):
         self.email.data = ""
-
-

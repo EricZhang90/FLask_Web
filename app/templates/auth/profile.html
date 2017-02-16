@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block pageName %}  Profile  {% endblock %}
+
+{% block contentHeader %}
+  <h1>Profile</h1>
+{% endblock%}
+
+{% block page_content %}
+<div class="container">
+    <div class="col-md-12">
+        <table class = "table table-striped">
+            <tbody style="font-size: 20px">
+                <tr>
+                    <td><span class = "label label-info">Username</span></td>
+                    <td>{{ current_user.username | title }}</td>
+                </tr>
+                <tr>
+                    <td><span class = "label label-info">Email</span></td>
+                    <td> {{ current_user.email | title }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
