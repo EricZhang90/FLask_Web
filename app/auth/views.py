@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from . import auth
 from .. import db
 from ..models import User
-from .forms import LoginForm, RegistrationForm, ChangePasswordForm
+from .forms import LoginForm, RegistrationForm, ChangePasswordForm, ChangeEmailForm
 from ..email import send_email
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -77,17 +77,23 @@ def resend_confirmation():
     flash('A new confirmation email has been sent to you by email.')
     return redirect(url_for('main.index'))
 
+@auth.route('/profileManage', methods=['GET', 'POST'])
 @login_required
-def change_password():
-    form = ChangePasswordForm()
-    if form.validate_on_submit():
-        current_user.password = form.new_password.data
-    flash('Password has been reset')
-
-
-
-
-
+def manage_user_profile():
+    passwordForm = ChangePasswordForm()
+    emailForm = ChangeEmailForm()
+    if passwordForm.validate_on_submit():
+        current_user.password = passwordForm.new_password.data
+        passwordForm.clearForm()
+        flash('Password has been changed')
+        return redirect(url_for('auth.profileManage', passwordForm=passwordForm, emailForm=emailForm))
+    elif emailForm.validate_on_submit():
+        current_user.email = emailForm.email.data
+        emailForm.cleanForm()
+        flash('Email has been changed')
+        return redirect(url_for('auth.profileManage'))
+    else:
+        return render_template('auth/profileManage.html', passwordForm=passwordForm, emailForm=emailForm)
 
 
 

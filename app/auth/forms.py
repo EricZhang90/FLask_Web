@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, ValidationError
 from wtforms.validators import Required, Length, Email, Regexp, EqualTo
 from ..models import User
-import os
+
 from flask_login import current_user
 
 class LoginForm(FlaskForm):
@@ -47,8 +47,16 @@ class ChangePasswordForm(FlaskForm):
         if current_user.verify_password(field.data) == False:
             raise ValidationError('Old password is incorrect.')
 
+    def cleanForm(self):
+        self.old_passowrd.data = ""
+        self.new_password.data = ""
+        self.new_password2.data = ""
 
+class ChangeEmailForm(FlaskForm):
+    email = StringField('New Email', validators=[Required(), Length(3,64), Email()])
+    submit = SubmitField('Chage Email')
 
-
+    def cleanForm(self):
+        self.email.data = ""
 
 
