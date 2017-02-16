@@ -1,0 +1,11 @@
+<h3>Dear {{ user.username }},</h3>
+
+<p>Nice to meet you in PythonWeb:</p>
+
+<p>    As your required, your email is going to change to current email. Please confirm this email change by clicking on the following link:</p>
+<p>        {{ url_for('auth.change_email', token=token, _external=True) }}</p>
+
+<p>    If this email is not sent under your willing, please ignore it. We apology the annoyance.</p>
+
+<p>    Best, </p>
+<p>    Python Web Team</p>

@@ -1,0 +1,11 @@
+Dear {{ user.username }},
+
+Nice to meet you in PythonWeb:
+
+    As your required, your email is going to change to current email. Please confirm this email change by clicking on the following link:
+    {{ url_for('auth.change_email', token=token, _external=True) }}
+
+    If this email is not sent under your willing, please ignore it. We apology the annoyance.
+
+    Best,
+    Python Web Team

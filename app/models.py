@@ -74,10 +74,16 @@ class User(db.Model, UserMixin):
         db.session.add(self)
         db.session.commit()
 
+    def generate_change_email_token(self, new_email, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'user': self.id, 'new_email': new_email})
 
-
-
-
+    def change_email_by_token(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        data = s.loads(token)
+        if data.get('user') != self.id or data.get('new_email') is None:
+            raise ValueError('Invalid Token')
+        self.email = data.get('new_email')
 
 
 

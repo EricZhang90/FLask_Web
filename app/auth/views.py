@@ -91,12 +91,27 @@ def change_password():
         return redirect(url_for('auth.change_password'))
     return render_template('auth/change_password.html', passwordForm=passwordForm)
 
+@auth.route('/request_change_email', methods=['GET', 'POST'])
+@login_required
+def request_change_email():
+    emailForm = ChangeEmailForm()
+    if emailForm.validate_on_submit():
+        token = current_user.generate_change_email_token(new_email=emailForm.email.data)
+        send_email(emailForm.email.data, 'Confirm Email Change', 'auth/email/change_email', user=current_user, token=token)
+        flash('A new confirmation email has been sent to you by new email address. Please confirm it in order to change your email.')
+        return redirect(url_for('main.index'))
+    return render_template('auth/change_email.html', emailForm=emailForm)
 
-
-
-
-
-
+@auth.route('/change_email/<token>')
+@login_required
+def change_email(token):
+    try:
+        current_user.change_email_by_token(token)
+    except:
+        flash('Token is invalid, please send a new token')
+        return render_template('auth/change_email.html', emailForm=ChangeEmailForm())
+    flash('Email has been changed.')
+    return redirect(url_for('main.index'))
 
 
 

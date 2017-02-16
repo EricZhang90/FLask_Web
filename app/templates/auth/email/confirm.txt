@@ -8,4 +8,4 @@ Welcome to PythonWeb:
 
     Bset,
 
-    Eric Zhang
+    Python Web Team
