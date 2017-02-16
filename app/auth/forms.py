@@ -25,7 +25,7 @@ class RegistrationForm(FlaskForm):
     password2 = PasswordField('Confirm Password', validators=[Required()])
     submit = SubmitField('Register')
 
-    def validate_emeail(self, field):
+    def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Email already registered.')
 
@@ -35,20 +35,16 @@ class RegistrationForm(FlaskForm):
 
 
 class ChangePasswordForm(FlaskForm):
-    old_passowrd = PasswordField('Old Password', validators=[Required(),
+    old_password = PasswordField('Old Password', validators=[Required(),
                                                      Length(8, 128, 'Length of password must be 8 - 128')])
     new_password = PasswordField('New Password', validators=[Required(),
-                                                     EqualTo('password2', message='Passwords must match'),
+                                                     EqualTo('new_password2', message='Passwords must match'),
                                                      Length(8, 128, 'Length of password must be 8 - 128')])
     new_password2 = PasswordField('Confirm Password', validators=[Required()])
     submit = SubmitField('Change Password')
 
-    def validate_old_password(self, field):
-        if current_user.verify_password(field.data) == False:
-            raise ValidationError('Old password is incorrect.')
-
     def cleanForm(self):
-        self.old_passowrd.data = ""
+        self.old_password.data = ""
         self.new_password.data = ""
         self.new_password2.data = ""
 

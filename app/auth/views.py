@@ -77,23 +77,19 @@ def resend_confirmation():
     flash('A new confirmation email has been sent to you by email.')
     return redirect(url_for('main.index'))
 
-@auth.route('/profileManage', methods=['GET', 'POST'])
+@auth.route('/change_password', methods=['GET', 'POST'])
 @login_required
-def manage_user_profile():
+def change_password():
     passwordForm = ChangePasswordForm()
-    emailForm = ChangeEmailForm()
     if passwordForm.validate_on_submit():
-        current_user.password = passwordForm.new_password.data
-        passwordForm.clearForm()
-        flash('Password has been changed')
-        return redirect(url_for('auth.profileManage', passwordForm=passwordForm, emailForm=emailForm))
-    elif emailForm.validate_on_submit():
-        current_user.email = emailForm.email.data
-        emailForm.cleanForm()
-        flash('Email has been changed')
-        return redirect(url_for('auth.profileManage'))
-    else:
-        return render_template('auth/profileManage.html', passwordForm=passwordForm, emailForm=emailForm)
+        if current_user.verify_password(passwordForm.old_password.data):
+            current_user.password = passwordForm.new_password.data
+            flash('Password has been changed')
+        else:
+            flash('Password is incorrect.')
+        passwordForm.cleanForm()
+        return redirect(url_for('auth.change_password'))
+    return render_template('auth/change_password.html', passwordForm=passwordForm)
 
 
 
