@@ -1,6 +1,6 @@
 from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 from sqlalchemy.ext.hybrid import hybrid_property
@@ -8,6 +8,16 @@ from sqlalchemy.ext.hybrid import hybrid_property
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+class AnonymousUser(AnonymousUserMixin):
+    def can(self, perminssions):
+        return False
+    def is_adminstrator(self):
+        return False
+
+login_manager.anonymous_user = AnonymousUser
+
 
 class Permission:
     FOLLOW = 0x01
@@ -71,6 +81,9 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return '<User %r>' % self.username
 
+    def __str__(self):
+        return self.username
+
     @property
     def password(self):
         raise AttributeError('Password is not a reable attribute')
@@ -80,6 +93,33 @@ class User(db.Model, UserMixin):
         self.password_hash = generate_password_hash(password)
         db.session.add(self)
         db.session.commit()
+
+    @hybrid_property
+    def email(self):
+        return self._email
+
+    @email.setter
+    def email(self, email):
+        self._email = email
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def change_password_by_token(cls, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        data = s.loads(token)
+        if data.get('user') is None or data.get('password') is None:
+            raise ValueError('Invalid Token')
+        user = User.query.get(int(data.get('user')))
+        if user is None:
+            raise ValueError('Invalid Token')
+        user.password = data.get('password')
+
+    def can(self, permissions):
+        return self.role is not None and (self.role.permissions & permissions) == permissions
+
+    def is_adminstrator(self):
+        return self.can(Permission.ADMINISTER)
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -101,16 +141,6 @@ class User(db.Model, UserMixin):
         db.session.commit()
         return True
 
-    @hybrid_property
-    def email(self):
-        return self._email
-
-    @email.setter
-    def email(self, email):
-        self._email = email
-        db.session.add(self)
-        db.session.commit()
-
     def generate_change_email_token(self, new_email, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'user': self.id, 'new_email': new_email})
@@ -126,13 +156,4 @@ class User(db.Model, UserMixin):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'user': self.id, 'password': password})
 
-    @classmethod
-    def change_password_by_token(cls, token):
-        s = Serializer(current_app.config['SECRET_KEY'])
-        data = s.loads(token)
-        if data.get('user') is None or data.get('password') is None:
-            raise ValueError('Invalid Token')
-        user = User.query.get(int(data.get('user')))
-        if user is None:
-            raise ValueError('Invalid Token')
-        user.password = data.get('password')
+
