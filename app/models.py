@@ -86,20 +86,13 @@ class User(db.Model, UserMixin):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'user': self.id, 'password': password})
 
-    def change_password_by_token(self, token):
+    @classmethod
+    def change_password_by_token(cls, token):
         s = Serializer(current_app.config['SECRET_KEY'])
         data = s.loads(token)
-        if data.get('user') != self.id or data.get('password') is None:
+        if data.get('user') is None or data.get('password') is None:
             raise ValueError('Invalid Token')
-        self.password = data.get('password')
-
-
-
-
-
-
-
-
-
-
-
+        user = User.query.get(int(data.get('user')))
+        if user is None:
+            raise ValueError('Invalid Token')
+        user.password = data.get('password')

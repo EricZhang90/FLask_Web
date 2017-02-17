@@ -132,7 +132,7 @@ def profile():
 
 
 @auth.route('/reset_password', methods=['GET', 'POST'])
-def reset_password():
+def request_reset_password():
     if current_user.is_anonymous == False:
         return redirect(url_for('main.index'))
     form = RestPasswordForm()
@@ -140,21 +140,16 @@ def reset_password():
         user = User.query.filter_by(email=form.email.data).first()
         token = user.generate_reset_password_token(password=form.password.data)
         send_email(form.email.data, 'Reset Password', 'auth/email/reset_password', user=user, token=token)
-        flash('A reset password email has been sent to your email. Please active new password by a link contained in the email.')
+        flash('A reset password email has been sent to your email. Please active the new password by the link contained in the email.')
         return redirect(url_for('main.index'))
     return render_template('auth/reset_password.html', form=form)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@auth.route('/reset_password/<token>')
+def reset_password(token):
+    try:
+        User.change_password_by_token(token)
+    except:
+        flash('Token is invalid, please send a new token.')
+        return redirect(url_for('main.index'))
+    flash('New password is actived now.')
+    return redirect(url_for('auth.login'))

@@ -13,9 +13,12 @@
   <div class="col-md-4">
     {{ wtf.quick_form(form) }}
     <p>
-      <br />
+      <br/>
       New User?
       <a href="{{ url_for('auth.register') }}">Here to register</a>
+      <br/>
+      <br/>
+      Forget Password? <a href="{{ url_for('auth.request_reset_password') }}">Reset Password</a>
     </p>
   </div>
 </div>
