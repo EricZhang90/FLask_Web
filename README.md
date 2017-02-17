@@ -34,10 +34,11 @@
 
 
 *__Setup Migration:__*
+1. rm -rf migrations
 
-1. python manage.py db init
+2. python manage.py db init
 
-2. python manage.py db migrate -m "initial migration"
+3. python manage.py db migrate -m "initial migration"
 
 
 *__Use Migration:__*
