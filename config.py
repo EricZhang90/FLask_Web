@@ -8,9 +8,9 @@ class Config:
     MAIL_SENDER = "Eric Zhang <z443655367gmail.com>"
     PY_WEB_ADMIN = os.environ.get('PW_WEB_ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    #SQLALCHEMY_POOL_RECYCLE = 280
-    #SQLALCHEMY_POOL_TIMEOUT = 20
-    #SECURITY_REGISTERABLE = True
+    SQLALCHEMY_POOL_RECYCLE = 280
+    SQLALCHEMY_POOL_TIMEOUT = 20
+    SECURITY_REGISTERABLE = True
 
     @staticmethod
     def init_app(app):
