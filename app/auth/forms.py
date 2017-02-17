@@ -36,7 +36,7 @@ class RegistrationForm(FlaskForm):
 
 
 class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField('Old Password', validators=[Required(),
+    old_password = PasswordField('Current Password', validators=[Required(),
                                                      Length(8, 128, 'Length of password must be 8 - 128')])
     new_password = PasswordField('New Password', validators=[Required(),
                                                      EqualTo('new_password2', message='Passwords must match'),
