@@ -1,4 +1,4 @@
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, abort
 from flask_login import login_user, logout_user, login_required, current_user
 from . import auth
 from .. import db
@@ -59,12 +59,13 @@ def confirm(token):
 
 @auth.before_app_request
 def before_request():
-    if current_user.is_authenticated \
-            and not current_user.confirmed \
+    if current_user.is_authenticated:
+        current_user.update_last_login_date()
+        if not current_user.confirmed \
             and request.endpoint \
             and request.endpoint[:5] != 'auth.' \
             and request.endpoint != 'static':
-        return redirect(url_for('auth.unconfirmed'))
+            return redirect(url_for('auth.unconfirmed'))
 
 
 @auth.route('/unconfirmed')
@@ -125,12 +126,6 @@ def change_email(token):
     return redirect(url_for('main.index'))
 
 
-@auth.route('/profile')
-@login_required
-def profile():
-    return render_template('auth/profile.html')
-
-
 @auth.route('/reset_password', methods=['GET', 'POST'])
 def request_reset_password():
     if current_user.is_anonymous == False:
@@ -143,6 +138,7 @@ def request_reset_password():
         flash('A reset password email has been sent to your email. Please active the new password by the link contained in the email.')
         return redirect(url_for('main.index'))
     return render_template('auth/reset_password.html', form=form)
+
 
 @auth.route('/reset_password/<token>')
 def reset_password(token):

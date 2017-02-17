@@ -37,7 +37,7 @@
                     <li class="drop-down">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown">&lt {{current_user.username}} &gt Account <b class="caret"></b></a>
                       <ul class="dropdown-menu">
-                        <li><a href="{{ url_for('auth.profile') }}"> Profile </a></li>
+                        <li><a href="{{ url_for('main.profile', username=current_user.username) }}"> Profile </a></li>
                         <li><a href="{{ url_for('auth.change_password') }}">Change Password</a></li>
                         <li><a href="{{ url_for('auth.request_change_email') }}">Change Email</a></li>
                         <li><a href="{{ url_for('auth.logout') }}">Sign Out</a></li>

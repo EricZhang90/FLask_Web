@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block pageName %}  Profile  {% endblock %}
+
+{% block contentHeader %}
+  <h1>Profile </h1>
+{% endblock%}
+
+{% block page_content %}
+<div class="container">
+    <div class="col-md-12">
+        <table class = "table table-striped">
+            <tbody style="font-size: 20px">
+                <tr>
+                    <td><span class = "label label-info">Username</span></td>
+                    <td>{{ user.username | title }}</td>
+                </tr>
+                <tr>
+                    <td><span class = "label label-info">Role</span></td>
+                    <td> {{ user.role | title }}</td>
+                </tr>
+                {% if current_user.is_administrator() %}
+                <tr>
+                    <td><span class = "label label-info">Email</span></td>
+                    <td><a href="mailto:{{ user.email }}"> {{ user.email | title }}</a></td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td><span class = "label label-info">Last Login Date</span></td>
+                    <td> {{ moment(user.last_login_date).format('llll') }} </td>
+                </tr>
+                <tr><td></td></tr>
+                <tr>
+                    <td><span class = "label label-info">Name</span></td>
+                    <td>
+                        {% if user.name %}
+                        {{ user.name | title }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class = "label label-info">Location</span></td>
+                    <td>
+                        {% if user.location %}
+                        <a href="http://maps.google.com.ezproxy.torontopubliclibrary.ca/?q={{ user.location }}">{{ user.location | title }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class = "label label-info">Registered in</span></td>
+                    <td>
+                        {{ moment(user.registered_date).format('LL') }}
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class = "label label-info">About Me</span></td>
+                    <td>
+                        {% if user.about_me %}
+                        {{ user.about_me | title }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

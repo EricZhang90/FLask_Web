@@ -4,6 +4,7 @@ from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 from sqlalchemy.ext.hybrid import hybrid_property
+from datetime import datetime
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -13,7 +14,7 @@ def load_user(user_id):
 class AnonymousUser(AnonymousUserMixin):
     def can(self, perminssions):
         return False
-    def is_adminstrator(self):
+    def is_administrator(self):
         return False
 
 login_manager.anonymous_user = AnonymousUser
@@ -69,6 +70,11 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     confirmed = db.Column(db.Boolean, default=False)
+    name = db.Column(db.String(64))
+    location = db.Column(db.String(64))
+    about_me = db.Column(db.Text())
+    registered_date = db.Column(db.DateTime(), default=datetime.utcnow)
+    last_login_date = db.Column(db.DateTime(), default=datetime.utcnow)
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -118,7 +124,7 @@ class User(db.Model, UserMixin):
     def can(self, permissions):
         return self.role is not None and (self.role.permissions & permissions) == permissions
 
-    def is_adminstrator(self):
+    def is_administrator(self):
         return self.can(Permission.ADMINISTER)
 
     def verify_password(self, password):
@@ -156,4 +162,7 @@ class User(db.Model, UserMixin):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'user': self.id, 'password': password})
 
-
+    def update_last_login_date(self):
+        self.last_login_date = datetime.utcnow()
+        db.session.add(self)
+        db.session.commit()
