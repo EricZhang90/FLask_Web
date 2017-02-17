@@ -34,6 +34,7 @@
 
 
 *__Setup Migration:__*
+
 1. rm -rf migrations
 
 2. python manage.py db init
