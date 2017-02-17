@@ -48,6 +48,8 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role %r>' % self.name
 
+    def __str__(self):
+        return self.name
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -57,6 +59,14 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     confirmed = db.Column(db.Boolean, default=False)
+
+    def __init__(self, **kwargs):
+        super(User, self).__init__(**kwargs)
+        if self.role is None:
+            if self._email == current_app.config['PY_WEB_ADMIN']:
+                self.role = Role.query.filter_by(permissions=0xff).first()
+            if self.role is None:
+                self.role = Role.query.filter_by(default=True).first()
 
     def __repr__(self):
         return '<User %r>' % self.username
