@@ -1,6 +1,6 @@
 # PythonWeb  - A Web Server#
 
-* Currently running in: http://eric909.pythonanywhere.com/ 
+* Currently running in: http://eric909.pythonanywhere.com/
 
 ## Deployment: ##
 
@@ -11,7 +11,7 @@
  2. A database named 'PythonWeb' is created in MySQL
 
  3. Setup all environment variables in environment_variables.txt
- 
+
  4. Git installed
 
 
@@ -44,7 +44,9 @@
 
 *__Use Migration:__*
 
-1. python manage.py db upgrade
+1. python manage.py db migrate
+
+2. python manage.py db upgrade
 
 
 *__Run:__*

@@ -61,7 +61,7 @@ class ChangeEmailForm(FlaskForm):
 
 class RestPasswordForm(FlaskForm):
     email = StringField('Registered Email', validators=[Required(), Length(3,64), Email()])
-    password = PasswordField('Password', validators=[Required(),
+    password = PasswordField('New Password', validators=[Required(),
                                                      EqualTo('password2', message='Passwords must match'),
                                                      Length(8, 128, 'Length of password must be 8 - 128')])
     password2 = PasswordField('Confirm Password', validators=[Required()])
