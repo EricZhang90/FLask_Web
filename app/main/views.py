@@ -1,7 +1,7 @@
 from flask import render_template, abort, flash, redirect, url_for
 from . import main
 from .. import db
-from app.models import User
+from app.models import User, Role
 from app.decorators import amdin_required
 from forms import EditProfileForm, EditProfileAdminForm
 from flask_login import login_required, current_user
@@ -54,7 +54,7 @@ def edit_profile_admin(id):
         db.session.add(user)
         db.session.commit()
         flash('The profile has been updated.')
-        return redirect(url_for('main.profile'), username=user.username)
+        return redirect(url_for('main.profile', username=user.username))
     form.username.data = user.username
     form.role = user.role_id
     form.email.data = user.email
@@ -62,4 +62,4 @@ def edit_profile_admin(id):
     form.name.data = user.name
     form.location.data = user.location
     form.about_me.data = user.about_me
-    return render_template('edit_profile', form=form, user=user)
+    return render_template('edit_profile.html', form=form, user=user)
