@@ -78,7 +78,7 @@ class User(db.Model, UserMixin):
     about_me = db.Column(db.Text())
     registered_date = db.Column(db.DateTime(), default=datetime.utcnow)
     last_login_date = db.Column(db.DateTime(), default=datetime.utcnow)
-    avatar_hash = db.Column(db.String(32))
+    _avatar_hash = db.Column(db.String(32))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -110,6 +110,14 @@ class User(db.Model, UserMixin):
     def email(self):
         return self._email
 
+    @hybrid_property
+    def avatar_hash(self):
+        return self._avatar_hash
+
+    @avatar_hash.setter
+    def avatar_hash(self, avatar_hash):
+        self._avatar_hash = avatar_hash
+
     @email.setter
     def email(self, email):
         self._email = email
@@ -122,9 +130,12 @@ class User(db.Model, UserMixin):
             url = 'https://secure.gravatar.com/avatar'
         else:
             url = 'http://www.gravatar.com/avatar'
-        hash = self.avatar_hash or hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        if self.avatar_hash is None:
+            self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+            db.session.add(self)
+            db.session.commit()
         return '{url}/{hash}?s={size}&d={default}&r={rating}'.format(
-                url=url, hash=hash, size=size, default=default, rating=rating)
+                url=url, hash=self.avatar_hash, size=size, default=default, rating=rating)
 
     @classmethod
     def change_password_by_token(cls, token):
