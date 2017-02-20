@@ -26,7 +26,7 @@ class EditProfileAdminForm(FlaskForm):
 
     def __init__(self, user, *args, **kwargs):
         super(EditProfileAdminForm, self).__init__(*args, **kwargs)
-        self.role.choices = [(role.id, role.name) for role in Role.query.order_by(Role.name).all()]
+        self.role.choices = [(role.id, role.name) for role in Role.query.order_by(Role.name.desc()).all()]
         self.user = user
 
     def validate_email(self, field):
@@ -36,3 +36,8 @@ class EditProfileAdminForm(FlaskForm):
     def validate_username(self, field):
         if field.data != self.user.username and User.query.filter_by(username=field.data).first():
             raise ValidationError('Username already in use.')
+
+
+class PostForm(FlaskForm):
+    body = TextAreaField("What's on your mind?")
+    submit = SubmitField('Post')

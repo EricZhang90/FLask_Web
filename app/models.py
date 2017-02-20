@@ -30,6 +30,7 @@ class Permission:
     MODERATE_COMMENTS = 0X08
     ADMINISTER = 0X80
 
+
 class Role(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
@@ -65,6 +66,7 @@ class Role(db.Model):
     def __str__(self):
         return self.name
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -79,6 +81,7 @@ class User(db.Model, UserMixin):
     registered_date = db.Column(db.DateTime(), default=datetime.utcnow)
     last_login_date = db.Column(db.DateTime(), default=datetime.utcnow)
     _avatar_hash = db.Column("avatar_hash", db.String(32))
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -128,6 +131,8 @@ class User(db.Model, UserMixin):
         db.session.commit()
 
     def gravatar(self, size=100, default='mm', rating='g'):
+        if self.is_administrator():
+            default = 'identicon'
         if request.is_secure:
             url = 'https://secure.gravatar.com/avatar'
         else:
@@ -195,4 +200,10 @@ class User(db.Model, UserMixin):
         db.session.commit()
 
 
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
