@@ -113,7 +113,7 @@ class User(db.Model, UserMixin):
     @email.setter
     def email(self, email):
         self._email = email
-        self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        self._avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
         db.session.add(self)
         db.session.commit()
     
@@ -124,7 +124,9 @@ class User(db.Model, UserMixin):
     @avatar_hash.setter
     def avatar_hash(self, avatar_hash):
         self._avatar_hash = avatar_hash
-
+        db.session.add(self)
+        db.session.commit()
+        
     def gravatar(self, size=100, default='mm', rating='g'):
         if request.is_secure:
             url = 'https://secure.gravatar.com/avatar'
@@ -132,8 +134,6 @@ class User(db.Model, UserMixin):
             url = 'http://www.gravatar.com/avatar'
         if self.avatar_hash is None:
             self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
-            db.session.add(self)
-            db.session.commit()
         return '{url}/{hash}?s={size}&d={default}&r={rating}'.format(
                 url=url, hash=self.avatar_hash, size=size, default=default, rating=rating)
 
