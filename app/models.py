@@ -102,21 +102,21 @@ class User(db.Model, UserMixin):
 
     @password.setter
     def password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self._password_hash = generate_password_hash(password)
         db.session.add(self)
         db.session.commit()
 
     @hybrid_property
     def email(self):
         return self._email
-    
+
     @email.setter
     def email(self, email):
         self._email = email
         self._avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
         db.session.add(self)
         db.session.commit()
-    
+
     @hybrid_property
     def avatar_hash(self):
         return self._avatar_hash
@@ -126,7 +126,7 @@ class User(db.Model, UserMixin):
         self._avatar_hash = avatar_hash
         db.session.add(self)
         db.session.commit()
-        
+
     def gravatar(self, size=100, default='mm', rating='g'):
         if request.is_secure:
             url = 'https://secure.gravatar.com/avatar'
