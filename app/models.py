@@ -78,7 +78,7 @@ class User(db.Model, UserMixin):
     about_me = db.Column(db.Text())
     registered_date = db.Column(db.DateTime(), default=datetime.utcnow)
     last_login_date = db.Column(db.DateTime(), default=datetime.utcnow)
-    _avatar_hash = db.Column(db.String(32))
+    _avatar_hash = db.Column("avatar_hash", db.String(32))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
