@@ -87,8 +87,8 @@ class User(db.Model, UserMixin):
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
-            if self._email is not None and self.avatar_hash is None:
-                self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        if self._email is not None and self.avatar_hash is None:
+            self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -109,7 +109,14 @@ class User(db.Model, UserMixin):
     @hybrid_property
     def email(self):
         return self._email
-
+    
+    @email.setter
+    def email(self, email):
+        self._email = email
+        self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        db.session.add(self)
+        db.session.commit()
+    
     @hybrid_property
     def avatar_hash(self):
         return self._avatar_hash
@@ -117,13 +124,6 @@ class User(db.Model, UserMixin):
     @avatar_hash.setter
     def avatar_hash(self, avatar_hash):
         self._avatar_hash = avatar_hash
-
-    @email.setter
-    def email(self, email):
-        self._email = email
-        self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
-        db.session.add(self)
-        db.session.commit()
 
     def gravatar(self, size=100, default='mm', rating='g'):
         if request.is_secure:
