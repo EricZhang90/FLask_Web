@@ -15,11 +15,17 @@
       Edit Profile [Admin]
     </a>
   {% endif %}
+
 {% endblock%}
 
+
+
 {% block page_content %}
+
+
 <div class="container">
-    <div class="col-md-12">
+    <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=180) }}">
+    <div class="profile-header">
         <table class = "table table-striped">
             <tbody style="font-size: 20px">
                 <tr>

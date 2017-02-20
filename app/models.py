@@ -2,9 +2,12 @@ from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app
+from flask import current_app, request
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
+import hashlib
+
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -75,6 +78,7 @@ class User(db.Model, UserMixin):
     about_me = db.Column(db.Text())
     registered_date = db.Column(db.DateTime(), default=datetime.utcnow)
     last_login_date = db.Column(db.DateTime(), default=datetime.utcnow)
+    avatar_hash = db.Column(db.String(32))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -83,6 +87,8 @@ class User(db.Model, UserMixin):
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
+            if self._email is not None and self.avatar_hash is None:
+                self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -107,8 +113,18 @@ class User(db.Model, UserMixin):
     @email.setter
     def email(self, email):
         self._email = email
+        self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
         db.session.add(self)
         db.session.commit()
+
+    def gravatar(self, size=100, default='mm', rating='g'):
+        if request.is_secure:
+            url = 'https://secure.gravatar.com/avatar'
+        else:
+            url = 'http://www.gravatar.com/avatar'
+        hash = self.avatar_hash or hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        return '{url}/{hash}?s={size}&d={default}&r={rating}'.format(
+                url=url, hash=hash, size=size, default=default, rating=rating)
 
     @classmethod
     def change_password_by_token(cls, token):
@@ -166,3 +182,6 @@ class User(db.Model, UserMixin):
         self.last_login_date = datetime.utcnow()
         db.session.add(self)
         db.session.commit()
+
+
+
