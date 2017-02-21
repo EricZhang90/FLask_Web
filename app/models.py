@@ -206,16 +206,16 @@ class User(db.Model, UserMixin):
         import forgery_py
         seed()
         for i in range(count):
-            u = User(email=forgery_py.internet.email_address(),
-                     username=forgery_py.internet.user_name(True),
-                     password=forgery_py.lorem_ipsum.word(),
-                     confirmed=True,
-                     name=forgery_py.name.full_name(),
-                     location=forgery_py.address.city(),
-                     about_me=forgery_py.lorem_ipsum.sentence(),
-                     registered_date=forgery_py.date.date(True))
-            db.session.add(u)
             try:
+                u = User(_email=forgery_py.internet.email_address(),
+                         username=forgery_py.internet.user_name(True),
+                         password=forgery_py.lorem_ipsum.word(),
+                         confirmed=True,
+                         name=forgery_py.name.full_name(),
+                         location=forgery_py.address.city(),
+                         about_me=forgery_py.lorem_ipsum.sentence(),
+                         registered_date=forgery_py.date.date(True))
+                db.session.add(u)
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
