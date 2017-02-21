@@ -2,7 +2,7 @@ from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app, request
+from flask import current_app, request, flash
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
 import hashlib
@@ -99,15 +99,16 @@ class User(db.Model, UserMixin):
     def __str__(self):
         return self.username
 
-    @property
+    @hybrid_property
     def password(self):
         raise AttributeError('Password is not a reable attribute')
 
     @password.setter
     def password(self, password):
-        self._password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
         db.session.add(self)
         db.session.commit()
+
 
     @hybrid_property
     def email(self):
