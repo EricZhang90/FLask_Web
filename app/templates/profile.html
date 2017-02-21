@@ -30,7 +30,7 @@
             <tbody style="font-size: 20px">
                 <tr>
                     <td><span class = "label label-info">Username</span></td>
-                    <td>{{ user.username | title }}</td>
+                    <td>{{ user.username }}</td>
                 </tr>
                 <tr>
                     <td><span class = "label label-info">Role</span></td>
@@ -80,5 +80,7 @@
             </tbody>
         </table>
     </div>
+    <h3>Posts</h3>
+    {% include '_posts.html'  %}
 </div>
 {% endblock %}

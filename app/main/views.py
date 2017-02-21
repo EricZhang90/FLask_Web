@@ -25,7 +25,8 @@ def profile(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         abort(404)
-    return render_template('profile.html', user=user)
+    posts = user.posts.order_by(Post.timestamp.desc()).all()
+    return render_template('profile.html', user=user, posts=posts)
 
 
 @main.route('/edit_profile', methods=['GET', 'POST'])
