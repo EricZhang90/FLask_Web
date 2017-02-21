@@ -23,7 +23,7 @@
 
   3. source ve/bin/active    [Make sure this command is run everytime]
 
-  4. For development environmemt: pip install -r extentions/div.txt
+  4. For development environmemt: pip install -r extentions/dev.txt
   
      For production environment: pip install -r extentions/prod.txt
 
