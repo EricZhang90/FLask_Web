@@ -23,7 +23,9 @@
 
   3. source ve/bin/active    [Make sure this command is run everytime]
 
-  4. pip install -r extentions.txt
+  4. For development environmemt: pip install -r extentions/div.txt
+  
+     For production environment: pip install -r extentions/prod.txt
 
 
 *__Setup tables in DB:__*
