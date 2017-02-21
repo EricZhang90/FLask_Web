@@ -2,7 +2,7 @@ from . import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app, request, flash
+from flask import current_app, request
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
 import hashlib
@@ -72,7 +72,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     _email = db.Column("email", db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
-    password_hash = db.Column(db.String(128))
+    _password_hash = db.Column("password_hash", db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     confirmed = db.Column(db.Boolean, default=False)
     name = db.Column(db.String(64))
@@ -105,10 +105,9 @@ class User(db.Model, UserMixin):
 
     @password.setter
     def password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self._password_hash = generate_password_hash(password)
         db.session.add(self)
         db.session.commit()
-
 
     @hybrid_property
     def email(self):
@@ -210,7 +209,7 @@ class User(db.Model, UserMixin):
             try:
                 u = User(_email=forgery_py.internet.email_address(),
                          username=forgery_py.internet.user_name(True),
-                         password=forgery_py.lorem_ipsum.word(),
+                         _password_hash=generate_password_hash(forgery_py.lorem_ipsum.word()),
                          confirmed=True,
                          name=forgery_py.name.full_name(),
                          location=forgery_py.address.city(),
