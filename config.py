@@ -7,6 +7,7 @@ class Config:
     MAIL_SUBJECT_PREFIX = 'PyWeb'
     MAIL_SENDER = "Eric Zhang <z443655367gmail.com>"
     PY_WEB_ADMIN = os.environ.get('PW_WEB_ADMIN')
+    PW_POSTS_PER_PAGE = int(os.environ.get('PW_POSTS_PER_PAGE'))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_POOL_RECYCLE = 280
     SQLALCHEMY_POOL_TIMEOUT = 20
