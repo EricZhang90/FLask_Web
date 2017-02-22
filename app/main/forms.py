@@ -39,5 +39,5 @@ class EditProfileAdminForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    body = TextAreaField("What's on your mind?", validators=[Length(min=1, message="Posting cannot be empty")])
+    body = TextAreaField("What's on your mind?", validators=[Required()])
     submit = SubmitField('Post')

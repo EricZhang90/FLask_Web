@@ -14,6 +14,14 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+class Permission:
+    FOLLOW = 0x01
+    COMMENT = 0x02
+    WRITE_ARTICLES = 0X04
+    MODERATE_COMMENTS = 0X08
+    ADMINISTER = 0X80
+
+
 class AnonymousUser(AnonymousUserMixin):
     def can(self, perminssions):
         return False
@@ -21,14 +29,6 @@ class AnonymousUser(AnonymousUserMixin):
         return False
 
 login_manager.anonymous_user = AnonymousUser
-
-
-class Permission:
-    FOLLOW = 0x01
-    COMMENT = 0x02
-    WRITE_ARTICLES = 0X04
-    MODERATE_COMMENTS = 0X08
-    ADMINISTER = 0X80
 
 
 class Role(db.Model):
@@ -90,8 +90,8 @@ class User(db.Model, UserMixin):
                 self.role = Role.query.filter_by(permissions=0xff).first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
-        if self._email is not None and self.avatar_hash is None:
-            self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+#        if self._email is not None and self.avatar_hash is None:
+#            self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
 
     def __repr__(self):
         return '<User %r>' % self.username
@@ -130,9 +130,9 @@ class User(db.Model, UserMixin):
         db.session.add(self)
         db.session.commit()
 
-    def gravatar(self, size=100, default='mm', rating='g'):
+    def gravatar(self, size=100, default='identicon', rating='g'):
         if self.is_administrator():
-            default = 'identicon'
+            default = 'mm'
         if request.is_secure:
             url = 'https://secure.gravatar.com/avatar'
         else:
@@ -206,15 +206,15 @@ class User(db.Model, UserMixin):
         import forgery_py
         seed()
         for i in range(count):
+            u = User(_email=forgery_py.internet.email_address(),
+                     username=forgery_py.internet.user_name(True),
+                     _password_hash=generate_password_hash(forgery_py.lorem_ipsum.word()),
+                     confirmed=True,
+                     name=forgery_py.name.full_name(),
+                     location=forgery_py.address.city(),
+                     about_me=forgery_py.lorem_ipsum.sentence(),
+                     registered_date=forgery_py.date.date(True))
             try:
-                u = User(_email=forgery_py.internet.email_address(),
-                         username=forgery_py.internet.user_name(True),
-                         _password_hash=generate_password_hash(forgery_py.lorem_ipsum.word()),
-                         confirmed=True,
-                         name=forgery_py.name.full_name(),
-                         location=forgery_py.address.city(),
-                         about_me=forgery_py.lorem_ipsum.sentence(),
-                         registered_date=forgery_py.date.date(True))
                 db.session.add(u)
                 db.session.commit()
             except IntegrityError:
