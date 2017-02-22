@@ -105,8 +105,16 @@ def edit_post(id):
     return render_template('edit_post.html', form=form)
 
 
-
-
+@main.route('/delete_post/<int:id>')
+@login_required
+def delete_post(id):
+    post = Post.query.get_or_404(id)
+    if current_user != post.author and current_user.can(Permission.ADMINISTER) == False:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('The post has been deleted.')
+    return redirect(url_for('.index'))
 
 
 
