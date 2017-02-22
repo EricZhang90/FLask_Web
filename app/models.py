@@ -160,7 +160,7 @@ class User(db.Model, UserMixin):
         return self.can(Permission.ADMINISTER)
 
     def verify_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        return check_password_hash(self._password_hash, password)
 
     def generate_confirmation_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)

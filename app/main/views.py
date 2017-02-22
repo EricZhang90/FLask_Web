@@ -25,7 +25,7 @@ def index():
 
 
 @main.route('/profile/<username>')
-def profile(username):
+def profile(username, page=1):
     user = User.query.filter_by(username=username).first()
     if user is None:
         abort(404)
