@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}
+
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block pageName %}  Home  {% endblock %}
