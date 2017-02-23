@@ -30,18 +30,19 @@
         </div>
         <div class="profile-header-follow">
             {% if current_user.is_authenticated and user != current_user and user.is_following(current_user) and current_user.is_following(user)%}
-            | <span class="label label-default">Friend</span>
+            &nbsp;| <span class="label label-default">Friend</span>
             <br/><br/>
             {% endif %}
-            <a href="#">
-                Followers: <span class="badge">{{ user.followers.count() }}</span>
-            </a>
-            <br/> <br/>
-            <a href="#">
-                Following: <span class="badge">{{ user.followed.count() }}</span>
+
+            <a href="{{ url_for('.followers', username=user.username) }}">
+                &nbsp;Followers: <span class="badge">{{ user.followers.count() }}</span>
             </a>
             <br/> <br/>
 
+            <a href="#">
+                &nbsp;Following: <span class="badge">{{ user.followed.count() }}</span>
+            </a>
+            <br/> <br/>
 
             {% if current_user.can(Permission.FOLLOW) and user != current_user %}
                 {% if not current_user.is_following(user) %}

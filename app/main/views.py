@@ -133,7 +133,6 @@ def follow(username):
     return redirect(url_for('.profile', username=username))
 
 
-
 @main.route('/unfollow/<username>')
 @login_required
 @permission_required(Permission.FOLLOW)
@@ -150,8 +149,23 @@ def unfollow(username):
     return redirect(url_for('.profile', username=username))
 
 
-
-
+@main.route('/followers/<username>')
+def followers(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('Invalid user.')
+        return redirect(url_for('.index'))
+    page_num = request.args.get('page', 1, type=int)
+    pagination = user.followers.paginate(page_num,
+                                    per_page=current_app.config['PW_POSTS_PER_PAGE'],
+                                    error_out=False)
+    follows = [{'user': item.follower, 'timestamp': item.timestamp} for item in pagination.items]
+    return render_template('followers.html',
+                           user=user,
+                           title='Followers of',
+                           endpoint='.followers',
+                           pagination=pagination,
+                           follows=follows)
 
 
 
