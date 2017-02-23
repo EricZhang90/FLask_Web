@@ -24,7 +24,7 @@
   3. source ve/bin/active    [Make sure this command is run everytime]
 
   4. For development environmemt: pip install -r extentions/dev.txt
-  
+
      For production environment: pip install -r extentions/prod.txt
 
 
@@ -33,6 +33,8 @@
 1. python manage.py shell
 
 2. db.create_all()
+
+3. Role.insert_roles()
 
 
 *__Setup Migration:__*
