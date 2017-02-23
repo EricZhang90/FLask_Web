@@ -17,11 +17,11 @@
     </div>
     <div class="profile-content">
         <table class = "table table-striped">
-            <tbody style="font-size: 20px">
+            <tbody style="font-size: 24px">
                 {% for follow in follows %}
                 <tr>
                     <td>
-                        <img class="img-rounded" src="{{ follow.user.gravatar(size=32) }}">
+                        <img class="img-rounded" src="{{ follow.user.gravatar(size=43) }}">
                         <a href="{{ url_for('.profile', username = follow.user.username) }}">
                             {{ follow.user.username }}
                         </a>
@@ -39,7 +39,7 @@
     {% if pagination.pages > 1 %}
         {% import "_macros.html" as macros %}
         <div class="pagination">
-            {{ macros.pagination_widget(pagination, '.profile', username=user.username) }}
+            {{ macros.pagination_widget(pagination, endpoint, username=user.username) }}
         </div>
     {% endif %}
 </div>

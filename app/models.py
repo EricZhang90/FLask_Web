@@ -74,6 +74,27 @@ class Follow(db.Model):
     followed_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
+    @staticmethod
+    def generate_fake_data(count=100):
+        from random import seed, randint
+        from sqlalchemy.exc import IntegrityError
+        seed()
+        user_count = User.query.count()
+        i = 0
+        while i < count:
+            follower_offset = randint(0, user_count - 1)
+            followed_offset = randint(0, user_count - 1)
+            if follower_offset == followed_offset:
+                continue
+            i += 1
+            follower = User.query.offset(follower_offset).first()
+            followed = User.query.offset(followed_offset).first()
+            try:
+                follower.follow(followed)
+            except IntegrityError:
+                db.session.rollback()
+
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
