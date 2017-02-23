@@ -24,8 +24,37 @@
 
 
 <div class="container">
-    <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=180) }}">
-    <div class="profile-header">
+    <div class="col-md-2">
+        <div class="profile-header-avatar">
+            <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=180) }}">
+        </div>
+        <div class="profile-header-follow">
+            {% if current_user.is_authenticated and user != current_user and user.is_following(current_user) and current_user.is_following(user)%}
+            | <span class="label label-default">Friend</span>
+            <br/><br/>
+            {% endif %}
+            <a href="#">
+                Followers: <span class="badge">{{ user.followers.count() }}</span>
+            </a>
+            <br/> <br/>
+            <a href="#">
+                Following: <span class="badge">{{ user.followed.count() }}</span>
+            </a>
+            <br/> <br/>
+
+
+            {% if current_user.can(Permission.FOLLOW) and user != current_user %}
+                {% if not current_user.is_following(user) %}
+                <a href="{{ url_for('.follow', username=user.username) }}"class="btn btn-primary">Follow</a>
+                {% else %}
+                <a href="{{ url_for('.unfollow', username=user.username) }}"class="btn btn-default">Unfollow</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="profile-content">
         <table class = "table table-striped">
             <tbody style="font-size: 20px">
                 <tr>
@@ -80,15 +109,18 @@
             </tbody>
         </table>
     </div>
-    <h3>Posts</h3>
-    {% include '_posts.html'  %}
+</div>
+<div class="container">
+    <div class="">
+        <h3>Posts</h3>
+        {% include '_posts.html'  %}
 
-    {% if pagination.pages > 1 %}
-    {% import "_macros.html" as macros %}
-    <div class="pagination">
-        {{ macros.pagination_widget(pagination, '.profile', username=user.username) }}
+        {% if pagination.pages > 1 %}
+        {% import "_macros.html" as macros %}
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination, '.profile', username=user.username) }}
+        </div>
+        {% endif %}
     </div>
-    {% endif %}
-
 </div>
 {% endblock %}

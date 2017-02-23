@@ -2,7 +2,7 @@ from flask import render_template, abort, flash, redirect, url_for, request, cur
 from . import main
 from .. import db
 from app.models import User, Role, Permission, Post
-from app.decorators import amdin_required
+from app.decorators import amdin_required, permission_required
 from forms import EditProfileForm, EditProfileAdminForm, PostForm
 from flask_login import login_required, current_user
 
@@ -115,6 +115,47 @@ def delete_post(id):
     db.session.commit()
     flash('The post has been deleted.')
     return redirect(url_for('.index'))
+
+
+@main.route('/follow/<username>')
+@login_required
+@permission_required(Permission.FOLLOW)
+def follow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('Invalid user.')
+        return redirect(url_for('.index'))
+    if current_user.is_following(user):
+        flash('You are already following this user.')
+        return redirect(url_for('.user', username=username))
+    current_user.follow(user)
+    flash('You are now following %s.' % username)
+    return redirect(url_for('.profile', username=username))
+
+
+
+@main.route('/unfollow/<username>')
+@login_required
+@permission_required(Permission.FOLLOW)
+def unfollow(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('Invalid user.')
+        return redirect(url_for('.index'))
+    if current_user.is_following(user) == False:
+        flash("You haven't followed this user.")
+        return redirect(url_for('.user', username=username))
+    current_user.unfollow(user)
+    flash('You are not following %s now.' % username)
+    return redirect(url_for('.profile', username=username))
+
+
+
+
+
+
+
+
 
 
 
