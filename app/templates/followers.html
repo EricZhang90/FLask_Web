@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% import "_macros.html" as macros %}
 
-{% block pageName %}  {{title}} user.username  {% endblock %}
+{% block pageName %}  {{title}} {{user.username}}  {% endblock %}
 
 {% block contentHeader %}
-<h1> {{title}} user.username </h1>
+<h1> {{title }} {{user.username}} </h1>
 {% endblock %}
 
 {% block page_content %}

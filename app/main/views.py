@@ -168,7 +168,23 @@ def followers(username):
                            follows=follows)
 
 
-
+@main.route('/followed/<username>')
+def followed(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        flash('Invalid user.')
+        return redirect(url_for('.index'))
+    page_num = request.args.get('page', 1, type=int)
+    pagination = user.followed.paginate(page_num,
+                                    per_page=current_app.config['PW_POSTS_PER_PAGE'],
+                                    error_out=False)
+    follows = [{'user': item.followed, 'timestamp': item.timestamp} for item in pagination.items]
+    return render_template('followers.html',
+                           user=user,
+                           title='Followed of',
+                           endpoint='.followers',
+                           pagination=pagination,
+                           follows=follows)
 
 
 
