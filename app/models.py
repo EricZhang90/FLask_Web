@@ -132,12 +132,6 @@ class User(db.Model, UserMixin):
 #        if self._email is not None and self.avatar_hash is None:
 #            self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
 
-    def __repr__(self):
-        return '<User %r>' % self.username
-
-    def __str__(self):
-        return self.username
-
     @hybrid_property
     def password(self):
         raise AttributeError('Password is not a reable attribute')
@@ -168,6 +162,17 @@ class User(db.Model, UserMixin):
         self._avatar_hash = avatar_hash
         db.session.add(self)
         db.session.commit()
+
+    @hybrid_property
+    def followed_posts(self):
+        return Post.query.join(Follow, Follow.followed_id==Post.author_id)\
+                         .filter(Follow.follower_id==self.id)
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+    def __str__(self):
+        return self.username
 
     def gravatar(self, size=100, default='identicon', rating='g'):
         if self.is_administrator():
@@ -256,6 +261,11 @@ class User(db.Model, UserMixin):
         if f:
             db.session.delete(f)
             db.session.commit()
+
+    @staticmethod
+    def follow_self():
+        for user in User.query.all():
+            user.follow(user)
 
     @staticmethod
     def generate_fake_data(count=100):

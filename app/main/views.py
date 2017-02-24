@@ -1,4 +1,4 @@
-from flask import render_template, abort, flash, redirect, url_for, request, current_app
+from flask import render_template, abort, flash, redirect, url_for, request, current_app, make_response
 from . import main
 from .. import db
 from app.models import User, Role, Permission, Post
@@ -16,12 +16,35 @@ def index():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('.index'))
+    show_followed = False
+    if current_user.is_authenticated:
+        show_followed = bool(request.cookies.get('show_followed', ''))
+    if show_followed:
+        query = current_user.followed_posts
+    else:
+        query = Post.query
     page_num = request.args.get('page', 1, type=int)
-    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page=page_num,
+    pagination = query.order_by(Post.timestamp.desc()).paginate(page=page_num,
                                             per_page=current_app.config['PW_POSTS_PER_PAGE'],
                                             error_out=False)
     posts = pagination.items
-    return render_template('index.html', form=form, posts=posts, pagination=pagination)
+    return render_template('index.html', form=form, posts=posts, pagination=pagination, show_followed=show_followed)
+
+
+@main.route('/show_all')
+@login_required
+def show_all():
+    resp = make_response(redirect(url_for('.index')))
+    resp.set_cookie('show_followed', '', max_age=30*24*60*60)
+    return resp
+
+
+@main.route('/show_followed')
+@login_required
+def show_followed():
+    resp = make_response(redirect(url_for('.index')))
+    resp.set_cookie('show_followed', '1', max_age=30*24*60*60)
+    return resp
 
 
 @main.route('/profile/<username>')
@@ -159,7 +182,7 @@ def followers(username):
     pagination = user.followers.paginate(page_num,
                                     per_page=current_app.config['PW_POSTS_PER_PAGE'],
                                     error_out=False)
-    follows = [{'user': item.follower, 'timestamp': item.timestamp} for item in pagination.items]
+    follows = [{'user': item.follower, 'timestamp': item.timestamp} for item in pagination.items if item.follower.id != user.id]
     return render_template('followers.html',
                            user=user,
                            title='Followers of',
@@ -178,7 +201,7 @@ def followed(username):
     pagination = user.followed.paginate(page_num,
                                     per_page=current_app.config['PW_POSTS_PER_PAGE'],
                                     error_out=False)
-    follows = [{'user': item.followed, 'timestamp': item.timestamp} for item in pagination.items]
+    follows = [{'user': item.followed, 'timestamp': item.timestamp} for item in pagination.items if item.followed.id != user.id]
     return render_template('followers.html',
                            user=user,
                            title='Followed of',

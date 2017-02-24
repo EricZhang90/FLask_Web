@@ -35,12 +35,12 @@
             {% endif %}
 
             <a href="{{ url_for('.followers', username=user.username) }}">
-                &nbsp;Followers: <span class="badge">{{ user.followers.count() }}</span>
+                &nbsp;Followers: <span class="badge">{{ user.followers.count() - 1 }}</span>
             </a>
             <br/> <br/>
 
             <a href="{{ url_for('.followed', username=user.username) }}">
-                &nbsp;Following: <span class="badge">{{ user.followed.count() }}</span>
+                &nbsp;Following: <span class="badge">{{ user.followed.count() - 1 }}</span>
             </a>
             <br/> <br/>
 
