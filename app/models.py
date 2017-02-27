@@ -326,6 +326,7 @@ class Post(db.Model):
 
 db.event.listen(Post.body, 'set', Post.on_changed_body)
 
+
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
@@ -334,11 +335,11 @@ class Comment(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     body_html = db.Column(db.Text)
     disable = db.Column(db.Boolean)
-    post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'em', 'i','strong']
+        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'code', 'em', 'i','strong', 'b', 'h1', 'h2', 'h3', 'p']
         target.body_html = bleach.linkify(bleach.clean(
                                             markdown(value, output_format='html'),
                                             tags=allowed_tags,

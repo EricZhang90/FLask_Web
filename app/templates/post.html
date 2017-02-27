@@ -5,5 +5,23 @@
 {% block page_content %}
 <div class="container">
     {% include '_posts.html' %}
+    <h4 id="comments">Comments</h4>
+    {% if current_user.can(Permission.COMMENT) %}
+    {% import "bootstrap/wtf.html" as wtf %}
+    {% block scripts %}
+        {{ super() }}
+        {{ pagedown.include_pagedown() }}
+    {% endblock %}
+    <div class="comment-form">
+        {{ wtf.quick_form(form) }}
+    </div>
+    {% endif %}
+    {% include '_comments.html' %}
+    {% if pagination and pagination.pages > 1 %}
+    {% import "_macros.html" as macros %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, '.post', fragment='#comments', id=posts[0].id) }}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

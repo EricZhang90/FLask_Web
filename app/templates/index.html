@@ -30,7 +30,7 @@
     <ul class="nav nav-tabs">
         <li{% if not show_followed %} class="active"{% endif %}><a {% if show_followed %} href="{{ url_for('.show_all') }}" {% endif %}>All</a></li>
         {% if current_user.is_authenticated %}
-        <li{% if show_followed %} class="active"{% endif %}><a {% if not show_followed %} href="{{ url_for('.show_followed') }}" {% endif %}>Followers</a></li>
+        <li{% if show_followed %} class="active"{% endif %}><a {% if not show_followed %} href="{{ url_for('.show_followed') }}" {% endif %}>Followed</a></li>
         {% endif %}
     </ul>
         {% include '_posts.html' %}
