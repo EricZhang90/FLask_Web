@@ -2,9 +2,7 @@
     {% for comment in comments %}
     <li class="comments">
         <div class="comment-thumbnail">
-            <a href="{{ url_for('.profile', username=comment.author.username) }}">
-                <img class="img-rounded profile-thumbnail" src="{{ comment.author.gravatar(size=40) }}">
-            </a>
+            <img class="img-rounded profile-thumbnail" src="{{ comment.author.gravatar(size=40) }}">
         </div>
         <div class="comment-content">
             <div class="comment-date">{{ moment(comment.timestamp).fromNow() }}</div>

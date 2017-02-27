@@ -132,6 +132,7 @@ class User(db.Model, UserMixin):
                 self.role = Role.query.filter_by(default=True).first()
 #        if self._email is not None and self.avatar_hash is None:
 #            self.avatar_hash = hashlib.md5(self.email.encode('utf-8')).hexdigest()
+        self.follow(self)
 
     @hybrid_property
     def password(self):
