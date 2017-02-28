@@ -335,8 +335,25 @@ class Comment(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     body_html = db.Column(db.Text)
-    disable = db.Column(db.Boolean)
+    disable = db.Column(db.Boolean, default=False)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+
+    @staticmethod
+    def generate_fake_data(count=100):
+        from random import seed, randint
+        import forgery_py
+        seed()
+        user_count = User.query.count()
+        post_count = Post.query.count()
+        for i in range(count):
+            p = Post.query.offset(randint(0, post_count - 1)).first()
+            u = User.query.offset(randint(0, user_count - 1)).first()
+            c = Comment(body=forgery_py.lorem_ipsum.sentences(randint(1,3)),
+                        timestamp=forgery_py.date.date(True),
+                        post=p,
+                        author=u)
+            db.session.add(c)
+            db.session.commit()
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
