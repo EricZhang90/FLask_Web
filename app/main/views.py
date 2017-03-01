@@ -227,6 +227,30 @@ def followed(username):
                            follows=follows)
 
 
+@main.route('/moderate/enable/<int:id>')
+@login_required
+@permission_required(Permission.MODERATE_COMMENTS)
+def moderate_enable(id):
+    comment = Comment.query.get_or_404(id)
+    post = Post.query.filter(Post.comments.any(id=id)).first()
+    comment.disable = False
+    db.session.add(comment)
+    db.session.commit()
+    return redirect(url_for('.post', id=post.id, page=request.args.get('page', 1, type=int), _anchor=id))
+
+
+@main.route('/moderate/disable/<int:id>')
+@login_required
+@permission_required(Permission.MODERATE_COMMENTS)
+def moderate_disable(id):
+    comment = Comment.query.get_or_404(id)
+    post = Post.query.filter(Post.comments.any(id=id)).first()
+    comment.disable = True
+    db.session.add(comment)
+    db.session.commit()
+    return redirect(url_for('.post', id=post.id, page=request.args.get('page', 1, type=int), _anchor=id))
+
+
 
 
 
