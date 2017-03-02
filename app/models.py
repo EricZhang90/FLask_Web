@@ -290,6 +290,19 @@ class User(db.Model, UserMixin):
             except IntegrityError:
                 db.session.rollback()
 
+    def generate_auth_toke(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'id': self.id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return None
+        return User.query.get(data['id'])
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
