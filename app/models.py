@@ -1,8 +1,9 @@
 from . import db, login_manager
+from app.exceptions import ValidationError
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-from flask import current_app, request
+from flask import current_app, request, url_for
 from sqlalchemy.ext.hybrid import hybrid_property
 from datetime import datetime
 import hashlib
@@ -269,6 +270,28 @@ class User(db.Model, UserMixin):
         for user in User.query.all():
             user.follow(user)
 
+    def generate_auth_toke(self, expiration=3600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration)
+        return s.dumps({'id': self.id})
+
+    @staticmethod
+    def verify_auth_token(token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except:
+            return None
+        return User.query.get(data['id'])
+
+    def to_json(self):
+        return { 'url': url_for('api.get_user', id=self.id, _external=True),
+                 'username': self.username,
+                 'registered_date': self.registered_date,
+                 'posts': url_for('api.get_user', id=self.id, _external=True),
+                 'followed_posts': url_for('app.get_user_followed_posts', id=self, _external=True),
+                 'post_count': self.post_count()
+                }
+
     @staticmethod
     def generate_fake_data(count=100):
         from sqlalchemy.exc import IntegrityError
@@ -289,20 +312,6 @@ class User(db.Model, UserMixin):
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
-
-    def generate_auth_toke(self, expiration=3600):
-        s = Serializer(current_app.config['SECRET_KEY'], expiration)
-        return s.dumps({'id': self.id})
-
-    @staticmethod
-    def verify_auth_token(token):
-        s = Serializer(current_app.config['SECRET_KEY'])
-        try:
-            data = s.loads(token)
-        except:
-            return None
-        return User.query.get(data['id'])
-
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -326,6 +335,22 @@ class Post(db.Model):
                      author=u)
             db.session.add(p)
             db.session.commit()
+
+    def to_json(self):
+        return { 'url': url_for('api.get_post', id=self.id, _external=True),
+                 'body': self.body,
+                 'body_html': self.body_html,
+                 'timestamp': self.timestamp,
+                 'author': url_for('api.get_user', id=self.author_id, _external=True),
+                 'comment_count': self.comments.count()
+                 }
+
+    @staticmethod
+    def from_json(json_post):
+        body = json_post.get('body')
+        if body is None or body == '':
+            ValidationError('post does not have a body')
+        return Post(body=body)
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
@@ -367,6 +392,23 @@ class Comment(db.Model):
                         author=u)
             db.session.add(c)
             db.session.commit()
+
+    def to_json(self):
+        return { 'url': url_for('api.get_comment', id=self.id, _external=True),
+                 'post': url_for('api.get_post', id=self.post_id, _external=True),
+                 'body': self.body,
+                 'body_html': self.body_html,
+                 'timestamp': self.timestamp,
+                 'author': url_for('api.get_user', id=self.author_id,
+                              _external=True)
+                }
+
+    @staticmethod
+    def from_json(json_comment):
+        body = json_comment.get('body')
+        if body is None or body == '':
+            raise ValidationError('comment does not have a body')
+        return Comment(body=body)
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
