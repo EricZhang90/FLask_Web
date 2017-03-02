@@ -1,5 +1,4 @@
-from flask import Blueprint, url_for
-import os
+from flask import Blueprint
 
 main = Blueprint('main', __name__)
 
