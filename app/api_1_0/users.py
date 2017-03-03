@@ -21,7 +21,9 @@ def followed(id):
         [{'username': item.followed.username,
           'url': url_for('api.get_user', id=item.followed.id, _external=True),
           'timestamp': item.timestamp
-          } for item in pagination.items if item.followed.id != user.id])
+          } for item in pagination.items if item.followed.id != user.id]
+    )
+
 
 @api.route('/followers/<int:id>')
 def followers(id):
@@ -35,4 +37,5 @@ def followers(id):
         [{'username': item.follower.username,
           'url': url_for('api.get_user', id=item.follower.id, _external=True),
           'timestamp': item.timestamp
-          } for item in pagination.items if item.follower.id != user.id])
+          } for item in pagination.items if item.follower.id != user.id]
+    )

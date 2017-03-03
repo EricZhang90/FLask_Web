@@ -56,7 +56,7 @@ def get_post(id):
 
 
 @permission_required(Permission.WRITE_ARTICLES)
-@api.route('/posts/', methods=['POST'])
+@api.route('/post/', methods=['POST'])
 def new_post():
     post = Post.from_json(request.json)
     post.author = g.current_user
@@ -78,7 +78,7 @@ def edit_post(id):
     return jsonify(post.to_json())
 
 
-@api.route('/followed_posts/<int:id>')
+@api.route('user/<int:id>/followed_posts')
 def get_user_followed_posts(id):
     page = request.args.get('page', 1, type=int)
     pagination = Post.query.filter_by(author_id=id) \

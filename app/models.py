@@ -270,7 +270,7 @@ class User(db.Model, UserMixin):
         for user in User.query.all():
             user.follow(user)
 
-    def generate_auth_toke(self, expiration=3600):
+    def generate_auth_token(self, expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
         return s.dumps({'id': self.id})
 
