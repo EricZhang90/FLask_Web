@@ -1,5 +1,4 @@
 from . import api
-from .authentication import auth
 from flask import jsonify, g, request, url_for, current_app
 from ..models import Post, Permission
 from .decorators import permission_required
@@ -9,11 +8,10 @@ from errors import forbidden
 
 
 @api.route('/posts/')
-@auth.login_required
 def get_posts():
     page = request.args.get('page', 1, type=int)
-    pagination = Post.query.paginate(page,
-                                     per_page=current_app.config['PW_POSTS_PER_PAGE='],
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page,
+                                     per_page=current_app.config['PW_POSTS_PER_PAGE'],
                                      error_out=False)
     posts = pagination.items
     prev = None
@@ -22,15 +20,36 @@ def get_posts():
     next = None
     if pagination.has_next:
         next = url_for('api.get_posts', page=page+1, _external=True)
-    return jsonify({'prev': prev,
-                    'next': next,
-                    'count': pagination.total,
-                    'posts': [post.to_json() for post in posts]
-                    })
+    return jsonify({
+        'prev': prev,
+        'next': next,
+        'count': pagination.total,
+        'posts': [post.to_json() for post in posts]
+    })
 
+@api.route('/user/<int:id>/posts')
+def get_user_posts(id):
+    page = request.args.get('page', 1, type=int)
+    pagination = Post.query.filter_by(author_id=id) \
+                           .order_by(Post.timestamp.desc()) \
+                           .paginate(page,
+                                     per_page=current_app.config['PW_POSTS_PER_PAGE'],
+                                     error_out=False)
+    posts = pagination.items
+    prev = None
+    if pagination.has_prev:
+        prev = url_for('api.get_user_posts', page=page-1, id=id, _external=True)
+    next = None
+    if pagination.has_next:
+        next = url_for('api.get_user_posts', page=page+1, id=id, _external=True)
+    return jsonify({
+        'prev': prev,
+        'next': next,
+        'count': pagination.total,
+        'posts': [post.to_json() for post in posts]
+    })
 
 @api.route('/post/<int:id>')
-@auth.login_required
 def get_post(id):
     post = Post.query.get_or_404(id)
     return jsonify({'post': post.to_json()})
@@ -59,7 +78,27 @@ def edit_post(id):
     return jsonify(post.to_json())
 
 
-
+@api.route('/followed_posts/<int:id>')
+def get_user_followed_posts(id):
+    page = request.args.get('page', 1, type=int)
+    pagination = Post.query.filter_by(author_id=id) \
+                           .order_by(Post.timestamp.desc()) \
+                           .paginate(page,
+                                     per_page=current_app.config['PW_POSTS_PER_PAGE'],
+                                     error_out=False)
+    posts = pagination.items
+    prev = None
+    if pagination.has_prev:
+        prev = url_for('api.get_user_followed_posts', page=page-1, id=id, _external=True)
+    next = None
+    if pagination.has_next:
+        next = url_for('api.get_user_followed_posts', page=page+1, id=id, _external=True)
+    return jsonify({
+        'prev': prev,
+        'next': next,
+        'count': pagination.total,
+        'posts': [post.to_json() for post in posts]
+    })
 
 
 

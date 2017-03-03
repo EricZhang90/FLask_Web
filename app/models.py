@@ -287,9 +287,13 @@ class User(db.Model, UserMixin):
         return { 'url': url_for('api.get_user', id=self.id, _external=True),
                  'username': self.username,
                  'registered_date': self.registered_date,
-                 'posts': url_for('api.get_user', id=self.id, _external=True),
-                 'followed_posts': url_for('app.get_user_followed_posts', id=self, _external=True),
-                 'post_count': self.post_count()
+                 'posts': url_for('api.get_user_posts', id=self.id, _external=True),
+                 'followed_posts': url_for('api.get_user_followed_posts', id=self.id, _external=True),
+                 'posts_count': self.posts.count(),
+                 'followed': url_for('api.followed', id=self.id, _external=True),
+                 'followed_count': self.followed.count() - 1,
+                 'followers': url_for('api.followers', id=self.id, _external=True),
+                 'followers_count': self.followers.count() - 1
                 }
 
     @staticmethod
@@ -312,6 +316,7 @@ class User(db.Model, UserMixin):
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
@@ -342,6 +347,7 @@ class Post(db.Model):
                  'body_html': self.body_html,
                  'timestamp': self.timestamp,
                  'author': url_for('api.get_user', id=self.author_id, _external=True),
+                 'comments': url_for('api.get_post_comments', id=self.id, _external=True),
                  'comment_count': self.comments.count()
                  }
 

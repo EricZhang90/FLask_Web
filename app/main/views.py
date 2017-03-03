@@ -1,7 +1,7 @@
 from flask import render_template, abort, flash, redirect, url_for, request, current_app, make_response
 from . import main
 from .. import db
-from app.models import User, Role, Permission, Post, Comment
+from app.models import User, Role, Permission, Post, Comment, Follow
 from app.decorators import amdin_required, permission_required
 from forms import EditProfileForm, EditProfileAdminForm, PostForm, CommentForm
 from flask_login import login_required, current_user
@@ -196,9 +196,10 @@ def followers(username):
         flash('Invalid user.')
         return redirect(url_for('.index'))
     page_num = request.args.get('page', 1, type=int)
-    pagination = user.followers.paginate(page_num,
-                                    per_page=current_app.config['PW_POSTS_PER_PAGE'],
-                                    error_out=False)
+    pagination = user.followers.order_by(Follow.timestamp) \
+                               .paginate(page_num,
+                                         per_page=current_app.config['PW_POSTS_PER_PAGE'],
+                                         error_out=False)
     follows = [{'user': item.follower, 'timestamp': item.timestamp} for item in pagination.items if item.follower.id != user.id]
     return render_template('followers.html',
                            user=user,
@@ -215,9 +216,10 @@ def followed(username):
         flash('Invalid user.')
         return redirect(url_for('.index'))
     page_num = request.args.get('page', 1, type=int)
-    pagination = user.followed.paginate(page_num,
-                                    per_page=current_app.config['PW_POSTS_PER_PAGE'],
-                                    error_out=False)
+    pagination = user.followed.oder.order_by(Follow.timestamp) \
+                                   .paginate(page_num,
+                                             per_page=current_app.config['PW_POSTS_PER_PAGE'],
+                                             error_out=False)
     follows = [{'user': item.followed, 'timestamp': item.timestamp} for item in pagination.items if item.followed.id != user.id]
     return render_template('followers.html',
                            user=user,
