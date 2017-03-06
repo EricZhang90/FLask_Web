@@ -27,6 +27,9 @@ class Config:
     MAIL_USERNAME = os.environ.get('PW_MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('PW_MAIL_PASSWORD')
 
+    # Performance
+    MULTI_THREADS = True
+
     @staticmethod
     def init_app(app):
         pass
@@ -34,6 +37,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
 
+    Config.MULTI_THREADS = False
     db_database = os.environ.get('PW_DB_DATABASE')
     SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s/%s' % (Config.db_username,
                                                        Config.db_password,
@@ -42,6 +46,7 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
+    Config.MULTI_THREADS = False
 
     db_database = os.environ.get('PW_DB_DATABASE')
     SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s/%s' % (Config.db_username,
