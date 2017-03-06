@@ -28,7 +28,8 @@ class Config:
     MAIL_PASSWORD = os.environ.get('PW_MAIL_PASSWORD')
 
     # Performance
-    MULTI_THREADS = True
+    MULTI_THREAD = False
+    # It could be true, but the server I am using doesn't support multi-thread.
 
     @staticmethod
     def init_app(app):
@@ -37,7 +38,6 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
 
-    Config.MULTI_THREADS = False
     db_database = os.environ.get('PW_DB_DATABASE')
     SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s/%s' % (Config.db_username,
                                                        Config.db_password,
@@ -46,7 +46,6 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    Config.MULTI_THREADS = False
 
     db_database = os.environ.get('PW_DB_DATABASE')
     SQLALCHEMY_DATABASE_URI = 'mysql://%s:%s@%s/%s' % (Config.db_username,
