@@ -28,29 +28,24 @@
      For production environment: pip install -r extentions/prod.txt
 
 
-*__Setup tables in DB:__*
+*__Configuration:__*
 
 1. python manage.py shell
 
 2. db.create_all()
 
-3. Role.insert_roles()
+3. exit()
+
+4. rm -rf migrations
+
+5. python manage.py db init
+
+6. python manage.py db migrate -m "initial migration"
 
 
-*__Setup Migration:__*
+*__Deploy__*
 
-1. rm -rf migrations
-
-2. python manage.py db init
-
-3. python manage.py db migrate -m "initial migration"
-
-
-*__Use Migration:__*
-
-1. python manage.py db migrate
-
-2. python manage.py db upgrade
+1. python manager.py deploy
 
 
 *__Run:__*
