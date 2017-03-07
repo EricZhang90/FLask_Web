@@ -26,7 +26,7 @@ def create_API_Documents():
     apis = []
     apis.append( API("USERS  &nbsp<strong>[GET]</strong>",
                      "Get a specific user by id",
-                     "URL:  http://eric909.pythonanywhere.com/api/v1.0/user/<id>",
+                     "URL:  http://eric909.pythonanywhere.com/api/v1.0/user/< id >",
                      "JSON:\n\n \
                      {\n\n \
                         'url': '{URL}',\n\n \
@@ -43,21 +43,6 @@ def create_API_Documents():
                     "-"
                  )
     )
-    apis.append( API("Comment  &nbsp<strong>[GET]</strong>",
-                     "Get a specific comment by id",
-                     "URL:  http://eric909.pythonanywhere.com/api/v1.0/comments/<id>",
-                     "JSON:\n\n \
-                     {\n\n \
-                        'url': '{URL}',\n\n \
-                        'post': {URL}',\n\n \
-                        'body': {String}',\n\n \
-                        'body_html': {HTML}',\n\n \
-                        'timestamp': '{Date}',\n\n \
-                        'author': {URL}',\n\n \
-                     }\n\n",
-                     "-"
-                 )
-    )
     apis.append( API("Posts  &nbsp<strong>[POST]</strong>",
                      "Upload a post",
                      "JSON\n\n \
@@ -66,7 +51,7 @@ def create_API_Documents():
                      }\n\n",
                      "JSON:\n\n \
                      {\n\n \
-                        'Location': {URL}',\n\n \
+                        'Location': '{URL}',\n\n \
                      }\n\n",
                      "\n\n \
                       Authentication required.\n\n \
@@ -76,26 +61,41 @@ def create_API_Documents():
                  )
     )
     apis.append( API("Posts  &nbsp<strong>[PUT]</strong>",
-                     "Modify a post",
+                     "Update a post",
                      "JSON\n\n \
                      {\n\n \
                         'body': '{String}'\n\n \
                      }\n\n",
                      "JSON:\n\n \
                      {\n\n \
-                        'url': {URL}',\n\n \
+                        'url': '{URL}',\n\n \
                         'body': '{String}'\n\n \
                         'body_html': '{HTML}'\n\n \
                         'timestamp': '{Date}',\n\n \
-                        'author': {URL}',\n\n \
-                        'comments': {URL}',\n\n \
-                        'comment_count': {Int}',\n\n \
+                        'author': '{URL}',\n\n \
+                        'comments': '{URL}',\n\n \
+                        'comment_count': '{Int}',\n\n \
                      }\n\n",
                      "\n\n \
                       Authentication required.\n\n \
                       User write permission required.\n\n \
                       Upload context in body.\n\n \
                       Receive modified post."
+                 )
+    )
+    apis.append( API("Comment  &nbsp<strong>[GET]</strong>",
+                     "Get a specific comment by id",
+                     "URL:  http://eric909.pythonanywhere.com/api/v1.0/comments/< id >",
+                     "JSON:\n\n \
+                     {\n\n \
+                        'url': '{URL}',\n\n \
+                        'post': '{URL}',\n\n \
+                        'body': '{String}',\n\n \
+                        'body_html': '{HTML}',\n\n \
+                        'timestamp': '{Date}',\n\n \
+                        'author': '{URL}',\n\n \
+                     }\n\n",
+                     "-"
                  )
     )
     return apis
