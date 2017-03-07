@@ -228,7 +228,7 @@ def followed(username):
         flash('Invalid user.')
         return redirect(url_for('.index'))
     page_num = request.args.get('page', 1, type=int)
-    pagination = user.followed.oder.order_by(Follow.timestamp) \
+    pagination = user.followed.order_by(Follow.timestamp) \
                                    .paginate(page_num,
                                              per_page=current_app.config['PW_POSTS_PER_PAGE'],
                                              error_out=False)
