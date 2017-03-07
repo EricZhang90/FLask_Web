@@ -61,11 +61,12 @@ def create_API_Documents():
                  )
     )
     apis.append( API("Posts  &nbsp<strong>[PUT]</strong>",
-                     "Update a post",
-                     "JSON\n\n \
-                     {\n\n \
-                        'body': '{String}'\n\n \
-                     }\n\n",
+                     "Update a post by id",
+                     "URL:  http://eric909.pythonanywhere.com/api/v1.0/post/< id > \n\n \
+                      JSON\n\n \
+                      {\n\n \
+                         'body': '{String}'\n\n \
+                      }\n\n",
                      "JSON:\n\n \
                      {\n\n \
                         'url': '{URL}',\n\n \
