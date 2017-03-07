@@ -5,7 +5,7 @@ from ..models import Comment
 
 
 @api.route('/comment/<int:id>')
-def get_comment():
+def get_comment(id):
     comment = Comment.query.get_or_404(id)
     return jsonify({'comment': comment.to_json()})
 

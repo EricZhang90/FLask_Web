@@ -86,7 +86,7 @@ def create_API_Documents():
     )
     apis.append( API("Comment  &nbsp<strong>[GET]</strong>",
                      "Get a specific comment by id",
-                     "URL:  http://eric909.pythonanywhere.com/api/v1.0/comments/< id >",
+                     "URL:  http://eric909.pythonanywhere.com/api/v1.0/comment/< id >",
                      "JSON:\n\n \
                      {\n\n \
                         'url': '{URL}',\n\n \
