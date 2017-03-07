@@ -1,11 +1,67 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+{{ super() }}
+<script>
+function toggle(id) {
+    if (document.getElementById(id).style.display == 'table-row') {
+        document.getElementById(id).style.display = 'none';
+        document.getElementById(id+'b').className = 'glyphicon glyphicon-chevron-down';
+    }
+    else {
+        document.getElementById(id).style.display = 'table-row';
+        document.getElementById(id+'b').className = 'glyphicon glyphicon-chevron-up';
+    }
+}
+</script>
+{% endblock %}
+
+
 {% block pageName %}  API Document  {% endblock %}
 
 {% block contentHeader %} <h1>API Document </h1> {% endblock %}
 
 {% block page_content %}
 <div class="container">
-    <h3>Coming soon</h3>
+    <h4>More API document is coming..</h4>
+    <div class="col-md-8">
+
+        <table class="table table-hover">
+            {% for i in range(apis|length) %}
+            <thead class="thead-inverse">
+                <tr>
+                    <th>{{ apis[i].endpoint|safe }}</th>
+                    <th></th>
+                    <th></th>
+                    <th colspan='3'><button type = "button" onClick="toggle('tbody{{ i }}');">Detail<b id="tbody{{ i }}b" class="glyphicon glyphicon-chevron-down"></b></button></th>
+                </tr>
+            </thead>
+            <tbody id="tbody{{ i }}" style="display:none;">
+                <tr>
+                    <th scope="row">Description</th>
+                    <td>{{ apis[i].description|safe }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Request</th>
+                    <td>{{ apis[i].request|safe }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Response</th>
+                    <td>{{ apis[i].response|safe}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Note</th>
+                    <td>{{ apis[i].note|safe }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
 </div>
 {% endblock %}
+
+
+
+
+
+

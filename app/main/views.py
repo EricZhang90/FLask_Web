@@ -20,11 +20,6 @@ def after_request(response):
     return response
 
 
-@main.route('/API_Doc')
-def api_doc():
-    return render_template('api_doc.html')
-
-
 @main.route('/', methods=['GET', 'POST'])
 def index():
     form = PostForm()
