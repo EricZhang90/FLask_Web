@@ -1,17 +1,24 @@
-var phonecatApp = angular.module('phonecatApp', []);
+var mainApp = angular.module("mainApp", []);
 
-// Define the `PhoneListController` controller on the `phonecatApp` module
-phonecatApp.controller('PhoneListController', function PhoneListController($scope) {
-  $scope.phones = [
-    {
-      name: 'Nexus S',
-      snippet: 'Fast just got faster with Nexus S.'
-    }, {
-      name: 'Motorola XOOM™ with Wi-Fi',
-      snippet: 'The Next, Next Generation tablet.'
-    }, {
-      name: 'MOTOROLA XOOM™',
-      snippet: 'The Next, Next Generation tablet.'
-    }
-  ];
+
+mainApp.controller('studentController', function($scope) {
+    $scope.student = {
+       firstName: "Mahesh",
+       lastName: "Parashar",
+       fees:500,
+
+       subjects:[
+          {name:'Physics',marks:70},
+          {name:'Chemistry',marks:80},
+          {name:'Math',marks:65},
+          {name:'English',marks:75},
+          {name:'Hindi',marks:67}
+       ],
+
+       fullName: function() {
+          var studentObject;
+          studentObject = $scope.student;
+          return studentObject.firstName + " " + studentObject.lastName;
+       }
+    };
 });
