@@ -1,26 +1,27 @@
-<html ng-app>
+
 {% extends "base.html" %}
 
 {% block scripts %}
 {{ super() }}
     <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+    <script src="/static/angular/app.js"></script>
 {% endblock %}
 
 {% block pageName %}  Angular 1.X  {% endblock %}
 
 {% block contentHeader %}
-  <h1>Angular 1.X </h1>
+  <h1>Angular 1.5 </h1>
 {% endblock%}
 
 {% block page_content %}
-<div class="container">
-    <div class="col-md-8">
-        <label>Name:</label>
-         <input type = "text" ng-model = "yourName" placeholder = "Enter a name here">
-         <hr />
-
-         <h1>Hello {{ '{{ yourName }}' }}!</h1>
+<div class="container" ng-app="phonecatApp">
+    <div class="col-md-8" ng-controller="PhoneListController">
+        <ul>
+            <li ng-repeat="phone in phones">
+                <span>{{ phone.name|angular }}</span>
+            <p>{{ phone.snippet|angular }}</p>
+            </li>
+        </ul>
     </div>
 </div>
 {% endblock %}
-</html>
