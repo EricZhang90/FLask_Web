@@ -11,49 +11,39 @@
 {% block pageName %}  Angular 1.5  {% endblock %}
 
 {% block contentHeader %}
-  <h1>Angular 1.5 </h1>
+  <h3>This page conbines Jinja 2 and Angular 1.5 template engines. </h3>
 {% endblock%}
 
 {% block page_content %}
 <div class="container">
-    <div class="col-md-8" ng-app = "mainApp" ng-controller = "studentController">
+    <div class="col-md-8" 
+        ng-app = "mainApp" 
+        ng-controller = 'postController'
+        ng-init= "backendData.postings = [
+                         {% for post in posts %}
+                            {{ ('{body: \'' + post.body + '\',') | safe }} {{ ('timestamp:' + post.timestamp + '}') | safe}} {% if not loop.last %} , {% endif %}
+                         {% endfor %}
+                         ]">
         <h4>Example</h4>
+        <p>What did Main_Tester post? </p>
+
          <table border = "0">
             <tr>
-               <td>Enter first name:</td>
-               <td><input type = "text" ng-model = "student.firstName"></td>
+               <td>Enter key word:</td>
+               <td><input type = "text" ng-model = "keyword"></td>
             </tr>
 
             <tr>
-               <td>Enter last name: </td>
-               <td>
-                  <input type = "text" ng-model = "student.lastName">
-               </td>
-            </tr>
-
-            <tr>
-               <td>Name: </td>
-               <td>{{ 'student.fullName()'|angular }}</td>
-            </tr>
-
-            <tr>
-               <td>Subject:</td>
+               <td>The main tester said :</td>
 
                <td>
-                  <table>
-                     <tr>
-                        <th>Name</th>.
-                        <th>Marks</th>
-                     </tr>
-
-                     <tr ng-repeat = "subject in student.subjects">
-                        <td>{{ subject.name|angular }}</td>
-                        <td>{{ subject.marks|angular }}</td>
-                     </tr>
-
-                  </table>
+                  <ul>
+                     <li ng-repeat = "posting in backendData.postings | filter: keyword" ng-if="keyword">
+                         
+                        {{ posting.body | angular }} 
+                     </li>
+                  </ul>
                </td>
-
             </tr>
          </table>
 
