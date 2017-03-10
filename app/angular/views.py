@@ -7,9 +7,9 @@ import time
 def index():
     admin = User.query.filter_by(username='Main_Tester').first()
     posts = [{
-              'body': posts.body,
-              'timestamp': str(time.mktime(posts.timestamp.timetuple()))
+              'body': post.body,
+              'timestamp': str(time.mktime(post.timestamp.timetuple()))
              }
-                for posts in admin.posts.order_by(Post.timestamp.desc()).all()]
+                for post in admin.posts.order_by(Post.timestamp.desc()).all()]
 
     return render_template('angular/index.html', posts=posts)
